@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 
@@ -21,14 +19,18 @@ function App() {
 
     const data = await response.json();
 
+
     if (response.ok) {
         console.log('Login backend success:', data);
+            localStorage.setItem('first_name', data.first_name);
+            localStorage.setItem('last_name', data.last_name);
+            localStorage.setItem('role', data.role);
 
         // Selon le rôle, rediriger vers la page appropriée
         if (data.role === 'manager') {
-            window.location.href = '/manager-dashboard';
-        } else if (data.role === 'collaborator') {
-            window.location.href = '/collaborator-dashboard';
+            window.location.href = '/Page-manager';
+        } else if (data.role === 'Employé') {
+            window.location.href = '/Page-Employé';
         } else {
             console.log('Unknown role');
         }
@@ -36,6 +38,9 @@ function App() {
         console.error('Login failed:', data.message);
     }
   };
+  
+  
+
 
 
   return (
@@ -50,6 +55,7 @@ function App() {
         />
     </div>
   </GoogleOAuthProvider>
+  
   )
 }
 

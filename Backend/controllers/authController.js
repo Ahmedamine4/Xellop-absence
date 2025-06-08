@@ -14,12 +14,14 @@ export const googleLogin = async (req, res) => {
 
         const payload = ticket.getPayload();
         const email = payload.email;
-        const name = payload.name;
+        const first_name = payload.given_name;    // prénom
+        const last_name = payload.family_name;    // nom de famille
 
-        console.log(`Utilisateur connecté: ${email} (${name})`);
+        console.log(`Utilisateur connecté: ${email} (${first_name} ${last_name})`);
 
+        // Vérifie le rôle dans ta table collaborateurs
         const [rows] = await pool.execute(
-            'SELECT role FROM users WHERE email = ?', [email]
+            'SELECT role FROM collaborateurs WHERE email = ?', [email]
         );
 
         if (rows.length === 0) {
@@ -28,10 +30,12 @@ export const googleLogin = async (req, res) => {
 
         const role = rows[0].role;
 
+        // Envoie la réponse avec first_name, last_name et role
         res.json({
             message: 'Login successful',
             email,
-            name,
+            first_name: payload.given_name,
+            last_name: payload.family_name,
             role,
         });
     } catch (error) {

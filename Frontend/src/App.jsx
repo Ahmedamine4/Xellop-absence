@@ -25,6 +25,8 @@ function App() {
             localStorage.setItem('first_name', data.first_name);
             localStorage.setItem('last_name', data.last_name);
             localStorage.setItem('role', data.role);
+            localStorage.setItem('manager_id', data.manager_id);
+            localStorage.setItem('Jour_restant', data.annual_leave_balance);
 
         // Selon le rôle, rediriger vers la page appropriée
         if (data.role === 'manager') {

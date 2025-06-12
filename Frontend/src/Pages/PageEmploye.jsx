@@ -1,4 +1,5 @@
-
+import "./Styles.css"
+import Demandecard from "../Components/DemandesCard"
   
  function PageEmploye() {
   const firstName = localStorage.getItem('first_name');
@@ -39,39 +40,23 @@
   return (
     <div className="employee-dashboard">
       <div className="employee-info">
-        <h1>Bonjour {firstName} {lastName}</h1>
-        <p>Rôle: {role}</p>
-        <p>Manager ID: {id_manager}</p>
-        <p>Jours de congé restants: {jour_res}</p>
+        <div className="inner">
+          <h1>{firstName} {lastName}</h1>
+          <div className="description">
+            <p>Rôle: {role}</p>
+            <p>Manager ID: {id_manager}</p>
+          </div>
+        </div>
       </div>
-
       <div className="leave-requests">
         <h2>Historique des demandes de congé</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Date de demande</th>
-              <th>Date de début</th>
-              <th>Date de fin</th>
-              <th>Nombre de jours</th>
-              <th>Type de congé</th>
-              <th>Statut</th>
-            </tr>
-          </thead>
-          <tbody>
-            {leaveRequests.map(request => (
-              <tr key={request.id}>
-                <td>{request.startDate}</td>
-                <td>{request.endDate}</td>
-                <td>{request.daysCount}</td>
-                <td>{request.type}</td>
-                <td>{request.status}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <Demandecard statut="Validé"/>
+        <Demandecard statut="Refusé"/>
+        <Demandecard statut="Brouillant"/>
+        <Demandecard statut="En Cours"/>
       </div>
     </div>
+
   );
 };
 

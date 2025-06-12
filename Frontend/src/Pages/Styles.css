@@ -1,0 +1,73 @@
+.employee-dashboard{
+  flex-direction: column;
+  position: fixed;
+  overflow-y: auto;  
+  top: 0;
+  left: 0;
+  width: 100vw;   
+  height: 100vh;
+  background: #0F0F28 ;
+  z-index: 0; 
+  justify-content: center;
+  align-items: center;
+
+}
+
+.employee-info{
+    display: block;
+    width: 15vw;
+    min-width: 14rem;
+    margin-left: 15vw;
+    margin-top: 3rem;
+    justify-content: center;
+    text-align: center;
+}
+
+.leave-requests{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 7rem;
+}
+
+.description {
+    display: flex;
+    gap: 0px;
+    flex-direction: column;
+    height: fit-content;
+    margin-top: 8px;
+}
+
+.employee-info h1{
+    color: #FFF;
+    font-family: Inter;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+
+}
+
+.employee-info p{
+    margin-top: 0px;
+    color: #FFF;
+    font-family: Inter;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+}
+
+.inner {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0px;
+    border-radius: 10px;
+    padding: 15px;
+    padding-left:3rem;
+    padding-right:3rem;
+    background: #1D1D4D;
+    text-align: left;
+}

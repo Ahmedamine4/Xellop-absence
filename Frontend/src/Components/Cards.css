@@ -1,0 +1,45 @@
+.Card-container {
+  background-color: #202046;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  align-items: center;
+  justify-content: center;
+  width: 70vw;
+  height: 100px;
+  box-sizing: border-box;
+  margin: 1rem .25em;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.badge{
+  display: inline-block;
+  padding: 0.7rem 0rem;
+  width: 10rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.badge.validé{
+  background-color: #93C357;
+  color: #334C14;
+}
+
+.badge.refusé{
+  background-color: #CC5759;
+  color: #681B1C;
+}
+
+.badge.brouillant{
+  background-color: #5786C3;
+  color: #1F395B;
+}
+
+.badge.en-cours{
+  background-color: #FFAE62;
+  color: #5D3C1C;
+}
+

@@ -33,7 +33,7 @@ function App() {
 
         // Selon le rôle, rediriger vers la page appropriée
         if (data.role === 'manager') {
-            window.location.href = '/Page-manager';
+            window.location.href = '/Page-Employé';
         } else if (data.role === 'Employé') {
             window.location.href = '/Page-Employé';
         } else {

@@ -1,4 +1,4 @@
-import "./Styles.css"
+
 import Demandecard from "../Components/DemandesCard"
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -15,9 +15,16 @@ function PageEmploye() {
   const id_manager = localStorage.getItem('manager_id');
   const userid = localStorage.getItem('employee_id'); 
 
+  const [selectcollab, setSelectcollab] = useState(false);
   const [leaveRequests, setLeaveRequests] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const percentage = (jour_res / 30)*100;
+
+  useEffect(() => {
+    if (selectcollab && role === "manager") {
+      window.location.href = '/Page-manager';
+    }
+  }, [selectcollab, role]);
 
   useEffect(() => {
     if (userid) {
@@ -29,6 +36,8 @@ function PageEmploye() {
 
   return (
     <div className="employee-dashboard">
+      <div className="info-submit-solde">
+
       <div className="employee-info">
         <div className="inner">
           <h1>{firstName} {lastName}</h1>
@@ -38,22 +47,22 @@ function PageEmploye() {
           </div>
         </div>
       </div>
+            <div className="navbar">
+        <div className="collaborateurnav" type="button">
+          <h1>Collaborateur</h1>
+        </div>
+        <div className="managernav" type="button" onClick={setSelectcollab}>
+          <h1>Manager</h1>
+        </div>
+      </div>
         <div className="solde-nouvelledemande">
             <div className="circularprogresssolde">
               <h1>Solde de Congé </h1>
-            <CircularProgressbar
-          value={percentage}
-          text={`${jour_res}`}
-          styles={buildStyles({
-          textColor: '#5B45FF',
-          pathColor: '#5B45FF',
-          trailColor: '#9091B6',
-          textSize: '16px',
-          strokeLinecap: 'butt',
-          pathWidth: 12, 
-          trailWidth: 12,
-        })}
-      />
+              <div className="progress-bar">
+                <div className="solde-progress" style={{ width: `${percentage}%` }}>
+                  <p>{jour_res}</p>
+                </div>
+              </div>
             </div>
             <div >
                 <button className='submitboutton' onClick={() => setShowForm(!showForm)}>
@@ -61,6 +70,7 @@ function PageEmploye() {
                 </button>
             </div>
             </div>
+        </div>
             <Nouvelledemande setLeaveRequests={setLeaveRequests} userid={userid}  setShowForm={setShowForm} showForm={showForm} />
       <div className="leave-requests">
         <h2>Historique des demandes de congé</h2>

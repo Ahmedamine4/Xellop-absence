@@ -56,14 +56,14 @@
   z-index: 1000;
 }
 .submitboutton{
+  display: flex;
   background-color: #FBA452;
   color: #1D1D4D;
   border-radius: .5rem;
-  padding: 1.5rem 3rem;
+  padding: 1rem 2rem;
   font-size: 1rem;
   font-weight: bold;
   text-align: center;
-  margin-right: 25vw;
 }
 .submitboutton:hover{
   background-color:#FFBD7E ;

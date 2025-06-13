@@ -93,13 +93,13 @@ const SetBrouillon = async () => {
               type="button"
               onClick={SetBrouillon}
             >
-              brouillon
+              Enregistrer comme brouillon
             </button>
             <button 
               className="enregistrerdemande" 
               type="submit"
               > 
-              Enregistrer 
+              Soumettre la demande
             </button>
             </div>
           </form>

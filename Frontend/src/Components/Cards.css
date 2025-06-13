@@ -33,7 +33,7 @@
   color: #681B1C;
 }
 
-.badge.brouillant{
+.badge.brouillon{
   background-color: #5786C3;
   color: #1F395B;
 }
@@ -69,6 +69,15 @@
 }
 .enregistrerdemande{
   background-color: #FBA452;
+  color: #1D1D4D;
+  padding: .5rem 3rem;
+  border-radius: .5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+.brouillondemande{
+  background-color: #5786C3;
   color: #1D1D4D;
   padding: .5rem 3rem;
   border-radius: .5rem;

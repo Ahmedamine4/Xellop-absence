@@ -2,15 +2,15 @@ import pool from '../db.js';
 
 export const createLeaveRequest = async (req, res) => {
   try {
-    const { employee_id, start_date, end_date, type } = req.body;
+    const { employee_id, start_date, end_date, type, status } = req.body;
 
-    if (!employee_id || !start_date || !end_date || !type) {
+    if (!employee_id || !start_date || !end_date || !type || !status) {
       return res.status(400).json({ error: 'Champs manquants' });
     }
 
     await pool.execute(
-      'INSERT INTO conge (employee_id, start_date, end_date, type) VALUES (?, ?, ?, ?)',
-      [employee_id, start_date, end_date, type]
+      'INSERT INTO conge (employee_id, start_date, end_date, type, status) VALUES (?, ?, ?, ?, ?)',
+      [employee_id, start_date, end_date, type, status || 'En Cours']
     );
 
     res.status(201).json({ message: 'Demande enregistrée avec succès' });

@@ -8,6 +8,33 @@ function Nouvelledemande({ userid, setLeaveRequests, setShowForm, showForm }) {
       const [typeConge, setTypeConge] = useState('');
       const [dateDebut, setDateDebut] = useState('');
       const [dateFin, setDateFin] = useState('');
+const SetBrouillon = async () => {
+  if (!userid) {
+    alert('Utilisateur non identifié');
+    return;
+  }
+  try {
+    await axios.post('http://localhost:5000/api/leaves', {
+      employee_id: userid,
+      start_date: dateDebut,
+      end_date: dateFin,
+      type: typeConge,
+      status: 'Brouillon'
+    });
+
+    const response = await axios.get(`http://localhost:5000/api/leaves/${userid}`);
+    setLeaveRequests(response.data);
+
+    alert('Brouillon enregistré !');
+    setTypeConge('');
+    setDateDebut('');
+    setDateFin('');
+    setShowForm(false);
+  } catch (error) {
+    console.error("Erreur lors de l'enregistrement du brouillon :", error);
+    alert("Erreur lors de l'enregistrement du brouillon");
+  }
+};
 
       const handleSubmit = async (e) => { //quand l'utilisateur soumet le formulaire de demande de congé.
     e.preventDefault();
@@ -61,6 +88,13 @@ function Nouvelledemande({ userid, setLeaveRequests, setShowForm, showForm }) {
             </div>
             <div className='bouttonsform'>
             <button className="annulerdemande" onClick={() => setShowForm(false)}>Annuler</button>
+            <button 
+              className="brouillondemande" 
+              type="button"
+              onClick={SetBrouillon}
+            >
+              brouillon
+            </button>
             <button 
               className="enregistrerdemande" 
               type="submit"

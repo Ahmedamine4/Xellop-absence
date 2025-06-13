@@ -22,6 +22,21 @@
     justify-content: center;
     text-align: center;
 }
+.Title{
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  align-items: center;
+  justify-content: center;
+  width: 70vw;
+  box-sizing: border-box;
+  margin: 1rem .25em;
+  margin-bottom: 1rem;
+}
+.Title span {
+  flex: 1; 
+  text-align: center;
+} 
+
 
 .leave-requests{
     display: flex;

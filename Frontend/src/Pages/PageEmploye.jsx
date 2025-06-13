@@ -1,4 +1,3 @@
-
 import "./Styles.css"
 import Demandecard from "../Components/DemandesCard"
 import React, { useEffect, useState } from 'react';
@@ -44,6 +43,14 @@ function PageEmploye() {
             <Nouvelledemande setLeaveRequests={setLeaveRequests} userid={userid}  setShowForm={setShowForm} showForm={showForm} />
       <div className="leave-requests">
         <h2>Historique des demandes de congé</h2>
+        <div className="Title">
+          <span>Dates Demande</span>
+          <span>Date de début</span>
+          <span>Date de fin</span>
+          <span>Nombre de jours</span>
+          <span>Type</span>
+          <span>Statut</span>
+        </div>
         {leaveRequests.map(request => (
           <Demandecard
             key={request.id}
@@ -61,3 +68,4 @@ function PageEmploye() {
 }
 
 export default PageEmploye;
+

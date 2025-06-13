@@ -10,6 +10,7 @@
   z-index: 0; 
   justify-content: center;
   align-items: center;
+  overflow-x: hidden;
 
 }
 
@@ -22,20 +23,56 @@
     justify-content: center;
     text-align: center;
 }
+.solde-nouvelledemande{
+  display: flex;
+  width: 100vw;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 4rem;
+  align-items: center;
+}
+.circularprogresssolde{
+  width:13vw;
+  height: auto;
+  font-family: Inter;
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 500;
+  margin-left: 25vw;
+}
+.circularprogresssolde h1{
+  color: #FFFFFF;
+  font-family: Inter;
+  font-size: 1.3rem;
+  font-style: normal;
+  font-weight: 500;
+  padding: .5rem .5rem;
+
+}
 .Title{
+  border-radius: 10px;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   align-items: center;
   justify-content: center;
   width: 70vw;
+  height: 50pxpx;
   box-sizing: border-box;
-  margin: 1rem .25em;
-  margin-bottom: 1rem;
+  padding: 0.5rem;
+  padding-top: 2rem;
 }
 .Title span {
   flex: 1; 
   text-align: center;
 } 
+.statut {
+  display: inline-block;
+  padding: 0.7rem 0rem;
+  width: 10rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  text-align: center;
+}
 
 
 .leave-requests{

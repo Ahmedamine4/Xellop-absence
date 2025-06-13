@@ -3,6 +3,8 @@ import Demandecard from "../Components/DemandesCard"
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Nouvelledemande from "../Components/Nouvelledemande";
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 function PageEmploye() {
 
@@ -15,6 +17,7 @@ function PageEmploye() {
 
   const [leaveRequests, setLeaveRequests] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const percentage = (jour_res / 30)*100;
 
   useEffect(() => {
     if (userid) {
@@ -35,10 +38,28 @@ function PageEmploye() {
           </div>
         </div>
       </div>
+        <div className="solde-nouvelledemande">
+            <div className="circularprogresssolde">
+              <h1>Solde de Congé </h1>
+            <CircularProgressbar
+          value={percentage}
+          text={`${jour_res}`}
+          styles={buildStyles({
+          textColor: '#5B45FF',
+          pathColor: '#5B45FF',
+          trailColor: '#9091B6',
+          textSize: '16px',
+          strokeLinecap: 'butt',
+          pathWidth: 12, 
+          trailWidth: 12,
+        })}
+      />
+            </div>
             <div >
                 <button className='submitboutton' onClick={() => setShowForm(!showForm)}>
                     {showForm ? "Fermer le formulaire" : "Faire une demande d'absence"}
                 </button>
+            </div>
             </div>
             <Nouvelledemande setLeaveRequests={setLeaveRequests} userid={userid}  setShowForm={setShowForm} showForm={showForm} />
       <div className="leave-requests">
@@ -49,7 +70,7 @@ function PageEmploye() {
           <span>Date de fin</span>
           <span>Nombre de jours</span>
           <span>Type</span>
-          <span>Statut</span>
+          <span className="statut">Statut</span>
         </div>
         {leaveRequests.map(request => (
           <Demandecard

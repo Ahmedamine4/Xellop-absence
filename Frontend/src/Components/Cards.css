@@ -63,6 +63,7 @@
   font-size: 1rem;
   font-weight: bold;
   text-align: center;
+  margin-right: 25vw;
 }
 .submitboutton:hover{
   background-color:#FFBD7E ;

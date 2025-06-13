@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import './App.css'
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+import myImage from './assets/xelopshomeimage.png';
+import Xelops from "./assets/xelops.png"
 
 function App() {
   const handleLoginSuccess = async (credentialResponse) => {
@@ -47,17 +49,30 @@ function App() {
 
 
   return (
+    <div className='homepage'>
+        <div className='mainleft'>
+            <img src={Xelops} alt="Xelops" className="xelops-logo" />
+            <div className='welcomeback'>
+            <h1>Welcome Back</h1>
+            <h2>Sign in with Google</h2>
+           </div>
     <GoogleOAuthProvider clientId="950133593228-euq4fsl44mfcieli2uqdig6n2cnhc5t4.apps.googleusercontent.com">
-    <div style={{ marginTop: '50px' }}>
-        <h2>Sign in with Google</h2>
+    <div className='googlelogin'>
         <GoogleLogin
             onSuccess={handleLoginSuccess}
             onError={() => {
                 console.log('Login Failed');
             }}
+            size="large" 
         />
     </div>
   </GoogleOAuthProvider>
+
+        </div>
+        <div className='rightpage'>
+            <img src={myImage} alt="My Image" className="my-image" />
+        </div>
+      </div>
   
   )
 }

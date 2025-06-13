@@ -5,38 +5,84 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+
+.homepage{
+  flex-direction: column;
+  position: fixed;
+  overflow-y: auto;  
+  top: 0;
+  left: 0;
+  width: 100vw;   
+  height: 100vh;
+  z-index: 0; 
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.rightpage{
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  overflow-y: auto;  
+  top: 0;
+  right: 0;
+  width: 50vw;   
+  height: 100vh;
+  z-index: 0;
+  background-color: #ABA3FF;
+  justify-content: center;
+  align-items: center;
+}
+.my-image{
+  width:30vw;
+  height: auto;
+}
+.xelops-logo{
+  margin-top: 4rem;
+  margin-left: 4rem;
+  width:10vw;
+  height: auto;
+
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.mainleft{
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  overflow-y: auto;  
+  top: 0;
+  left: 0;
+  width: 50vw;   
+  height: 100vh;
+  z-index: 0;
+  background-color: white;
+  color:#111271 ;
 }
-
-.card {
-  padding: 2em;
+.mainleft h1 {
+  color: #111271;
+  font-family: Inter;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
+.mainleft h2 {
+color: #9091B6;
+font-family: Inter;
+font-size: 15px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+margin: 0;
+margin-bottom: 5rem;
+}
+.welcomeback{
+  display: flex;
+  flex-direction: column;
+  padding-top: 7rem;
+  padding-left: 7rem;
+  text-align: left;
+}
+.googlelogin{
+  display: flex;
+  padding-left: 7rem;
 
-.read-the-docs {
-  color: #888;
 }

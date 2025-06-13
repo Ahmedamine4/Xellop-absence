@@ -15,8 +15,8 @@ function Demandecard({ start_date, end_date, type, statut}) {
   return (
       <section className="Card-container">
           <span>JJ-MM-YYYY</span>
-          <span>{start_date}</span>
-          <span>{end_date}</span>
+          <span>{new Date(start_date).toLocaleDateString("fr-FR")}</span>
+          <span>{new Date(end_date).toLocaleDateString("fr-FR")}</span>
           <span>{calculateDays(start_date, end_date)}</span>
           <span>{type}</span>
           <span className={statutstyle}>{statut}</span>

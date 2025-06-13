@@ -43,3 +43,151 @@
   color: #5D3C1C;
 }
 
+.formpage{
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100vw;   
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+.submitboutton{
+  background-color: #FBA452;
+  color: #1D1D4D;
+  border-radius: .5rem;
+  padding: 1.5rem 3rem;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+}
+.submitboutton:hover{
+  background-color:#FFBD7E ;
+}
+.enregistrerdemande{
+  background-color: #FBA452;
+  color: #1D1D4D;
+  padding: .5rem 3rem;
+  border-radius: .5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+.annulerdemande{
+  background-color: #988D83;
+  color: #1D1D4D;
+  padding: .5rem 2rem;
+  border-radius: .5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+.bouttonsform{
+  display: flex;
+  padding-top: 4rem;
+  flex-direction: row;
+  gap: 5rem;
+}
+
+.absence-request-form{
+  display: flex;
+  z-index: 1001;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 50vw;
+  border-radius: 1rem;
+  background-color: #1D1D4D;
+}
+.form-choix{
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  width: 100%;
+}
+.choix{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 45%;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  color: white;
+}
+
+.custom-select-container {
+  position: relative;
+  width: 250px;
+}
+
+.select-button {
+  width: 100%;
+  background-color: #ABA3FF1A;
+  color: #ABA3FF;
+  border: none;
+  border-radius: .5rem;
+  padding: 0.7rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.arrow {
+  margin-left: 1rem;
+}
+
+.select-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin-top: .3rem;
+  background-color: #1D1D4D;
+  border-radius: .5rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  z-index: 100;
+  padding: 0;
+  list-style: none;
+}
+
+.option-item {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  color: #ABA3FF;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.option-item:hover {
+  background-color: #ABA3FF22;
+}
+
+.option-item.active {
+  background-color: #ABA3FF33;
+  font-weight: bold;
+}
+
+input[type="date"] {
+  background-color: #ABA3FF1A;
+  color: #ABA3FF;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  appearance: none; 
+  -webkit-appearance: none;
+  cursor: pointer;
+}

@@ -58,6 +58,12 @@
   font-weight: 600;
 }
 
+.Card-modif{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .Card-container {
   background-color: #202046;
   border-radius: 10px;
@@ -349,4 +355,16 @@ input[type="date"] {
   appearance: none; 
   -webkit-appearance: none;
   cursor: pointer;
+}
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  position: relative;
+  background-color: #9091B6;
+  cursor: pointer;
+  margin: 5px;
 }

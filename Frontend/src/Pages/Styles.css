@@ -129,8 +129,12 @@
 .leave-requests{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-top: 3rem;
+    margin-top: 0rem;
+    margin-left: 15vw;
+}
+.Title-leave-requests  {
+  margin-top: 3rem;
+  
 }
 
 .description {

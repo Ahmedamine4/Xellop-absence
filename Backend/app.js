@@ -16,8 +16,10 @@ app.use(cors({
 
 app.use(bodyParser.json());
 
+
 app.use('/api/leaves', leaveRoutes);
 app.use('/api', authRoutes);
+
 
 app.listen(5000, () => {
     console.log('Backend running on http://localhost:5000');

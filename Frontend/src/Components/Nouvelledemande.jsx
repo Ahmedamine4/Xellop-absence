@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import  { useState, useEffect } from 'react';
 import axios from 'axios';
-import "./Cards.css"
+import "./Cards.css";
 import CustomSelect from './Congeoptions';
 
-function Nouvelledemande({ userid, setLeaveRequests, setShowForm, showForm, id_manager, first_name, last_name, soldeConge }) {
+function Nouvelledemande({ userid, setLeaveRequests, setShowForm, showForm, editDraft , id_manager, first_name, last_name, soldeConge}) {
 
       const [typeConge, setTypeConge] = useState('');
       const [dateDebut, setDateDebut] = useState('');
@@ -17,36 +17,64 @@ function Nouvelledemande({ userid, setLeaveRequests, setShowForm, showForm, id_m
         };
 
       const joursDemandes = calculateDays(dateDebut, dateFin);
+
   
-const SetBrouillon = async () => {
-  if (!userid) {
-    alert('Utilisateur non identifié');
-    return;
+  useEffect(() => {
+    console.log("editDraft reçu dans Nouvelledemande :", editDraft);
+    if (editDraft) { 
+      setTypeConge(editDraft.type || '');
+      setDateDebut(editDraft.start_date ? editDraft.start_date.slice(0, 10) : '');
+      setDateFin(editDraft.end_date ? editDraft.end_date.slice(0, 10) : '');
+    } else {
+      setTypeConge('');
+      setDateDebut('');
+      setDateFin('');
     }
-  if (joursDemandes > soldeConge ) {
-    alert(`Vous n'avez que ${soldeConge} jour(s) de congé restant.`);
-    return;
+  }, [editDraft]);
+
+  const SetBrouillon = async () => {
+    if (!userid) {
+      alert('Utilisateur non identifié');
+      return;
     }
-  try {
-    await axios.post('http://localhost:5000/api/leaves', {
-      employee_id: userid,
-      start_date: dateDebut,
-      end_date: dateFin,
-      type: typeConge,
-      status: 'Brouillon',
-      manager_id: id_manager,
-      first_name: first_name,
-      last_name: last_name,
-    });
+    if (!typeConge) {
+      alert("Veuillez sélectionner un type de congé pour enregistrer un brouillon.");
+      return;
+    }
+    try {
+      if (editDraft) {
+        await axios.put(`http://localhost:5000/api/leaves/${editDraft.id}`, {
+          start_date: dateDebut,
+          end_date: dateFin,
+          type: typeConge,
+          status: 'Brouillon',
+          manager_id: id_manager,
+          first_name: first_name,
+          last_name: last_name,
+        });
+        alert(`Brouillon mis à jour !`);
+        setShowForm(false);
+      } else {
+        await axios.post('http://localhost:5000/api/leaves', {
+          employee_id: userid,
+          start_date: dateDebut,
+          end_date: dateFin,
+          type: typeConge,
+          status: 'Brouillon',
+          manager_id: id_manager,
+          first_name: first_name,
+          last_name: last_name,
+        });
 
-    const response = await axios.get(`http://localhost:5000/api/leaves/${userid}`);
-    setLeaveRequests(response.data);
+        const response = await axios.get(`http://localhost:5000/api/leaves/${userid}`);
+        setLeaveRequests(response.data);
 
-    alert('Brouillon enregistré !');
-    setTypeConge('');
-    setDateDebut('');
-    setDateFin('');
-    setShowForm(false);
+      alert('Brouillon enregistré !');
+      setTypeConge('');
+      setDateDebut('');
+      setDateFin('');
+      setShowForm(false);
+    }
   } catch (error) {
     console.error("Erreur lors de l'enregistrement du brouillon :", error);
     alert("Erreur lors de l'enregistrement du brouillon");
@@ -64,7 +92,16 @@ const SetBrouillon = async () => {
     return;
     }
 
-    try {
+  try {
+    if (editDraft) {
+      await axios.put(`http://localhost:5000/api/leaves/${editDraft.id}`, {
+        start_date: dateDebut,
+        end_date: dateFin,
+        type: typeConge,
+        status: 'En Cours'
+      });
+      alert('Brouillon modifié et soumis !');
+    } else {
       await axios.post('http://localhost:5000/api/leaves', {
         employee_id: userid,
         start_date: dateDebut,
@@ -75,6 +112,7 @@ const SetBrouillon = async () => {
         first_name: first_name,
         last_name: last_name,
       });
+    }
 
       const response = await axios.get(`http://localhost:5000/api/leaves/${userid}`);
       setLeaveRequests(response.data);

@@ -1,4 +1,3 @@
-
 import Demandecard from "../Components/DemandesCard"
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -8,17 +7,67 @@ import 'react-circular-progressbar/dist/styles.css';
 import Navbar from "../Components/navbar";
 
 function PageEmploye() {
-
   const firstName = localStorage.getItem('first_name');
   const lastName = localStorage.getItem('last_name');
-  const jour_res = localStorage.getItem('Jour_restant');
+  const jour_res = Number(localStorage.getItem('Jour_restant')) || 0;
   const role = localStorage.getItem('role');
   const id_manager = localStorage.getItem('manager_id');
-  const userid = localStorage.getItem('employee_id'); 
+  const userid = localStorage.getItem('employee_id');
 
   const [leaveRequests, setLeaveRequests] = useState([]);
   const [showForm, setShowForm] = useState(false);
-  const percentage = (jour_res / 30)*100;
+  const [editDraft, setEditDraft] = useState(null);
+  const percentage = (jour_res / 30) * 100;
+
+  const loadLeaves = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/leaves/${userid}`);
+      setLeaveRequests(response.data);
+    } catch (error) {
+      console.error('Erreur de chargement des congés :', error);
+    }
+  };
+  useEffect(() => {
+    if (userid) loadLeaves();
+  }, [userid]);
+const handleDelete = async (id) => {
+    if (!window.confirm("Voulez-vous vraiment supprimer ce brouillon ?")) return;
+    try {
+      await axios.delete(`http://localhost:5000/api/leaves/${id}`);
+      loadLeaves();
+      alert("Brouillon supprimé !");
+    } catch (error) {
+      console.error("Erreur lors de la suppression :", error);
+      alert("Erreur lors de la suppression");
+    }
+  };
+
+  // Envoyer une demande : mettre à jour le statut
+  const handleSend = async (id) => {
+    try {
+      await axios.put(`http://localhost:5000/api/leaves/${id}`, { status: "En Cours" });
+      loadLeaves();
+      alert("Demande envoyée !");
+    } catch (error) {
+      console.error("Erreur lors de l'envoi :", error);
+      alert("Erreur lors de l'envoi");
+    }
+  };
+
+  // Modifier un brouillon 
+  const handleEdit = async (id) => {
+  try {
+    const response = await axios.get(`http://localhost:5000/api/leaves/one/${id}`);
+    console.log(" Données reçues depuis backend pour modification :", response.data);
+    setShowForm(true);
+    setEditDraft(response.data); 
+
+  } catch (error) {
+    console.error("Erreur lors de la modification :", error);
+    alert("Erreur lors de la modification");
+  }
+};
+
 
   useEffect(() => {
     if (userid) {
@@ -53,26 +102,35 @@ function PageEmploye() {
               </div>
             </div>
             <div >
-                <button className='submitboutton' onClick={() => setShowForm(!showForm)}>
-                    {showForm ? "Fermer le formulaire" : "Faire une demande d'absence"}
-                </button>
-            </div>
-            </div>
+                <button className='submitboutton' onClick={() => { setShowForm(!showForm); setEditDraft(null); }}>
+              {showForm ? "Fermer le formulaire" : "Faire une demande d'absence"}
+            </button>
+          </div>
         </div>
-            <Nouvelledemande 
-              setLeaveRequests={setLeaveRequests} 
-              userid={userid} 
-              id_manager={id_manager} 
-              setShowForm={setShowForm} 
-              showForm={showForm} 
-              first_name={firstName} 
-              last_name={lastName}
-              soldeConge={jour_res}
-              />
+      </div>
+
+       <Nouvelledemande
+        userid={userid}
+        setLeaveRequests={setLeaveRequests}
+        setShowForm={setShowForm}
+        showForm={showForm}
+        editDraft={editDraft}
+        id_manager={id_manager}
+        first_name={firstName} 
+        last_name={lastName} 
+        soldeConge={jour_res}
+        onUpdateDone={() => {
+          setEditDraft(null);
+          setShowForm(false);
+          loadLeaves();
+        }}
+      />
+      <div className="Title-leave-requests">
+      <h2>Historique des demandes de congé</h2>
+      </div>
       <div className="leave-requests">
-        <h2>Historique des demandes de congé</h2>
         <div className="Title">
-          <span>Dates Demande</span>
+          <span>Date de soumission</span>
           <span>Date de début</span>
           <span>Date de fin</span>
           <span>Nombre de jours</span>
@@ -83,20 +141,21 @@ function PageEmploye() {
           .filter(leaveRequests => leaveRequests.employee_id === userid )
           .map(request => (
           <Demandecard
-            key={request.id}
+            id={request.id}
+            date_soumission={request.date_soumission}
             start_date={request.start_date}
             end_date={request.end_date}
             type={request.type}
             statut={request.status}
             employee_id={request.employee_id}
-/>
+            onEdit={handleEdit}      
+            onDelete={handleDelete}
+            onSend={handleSend}
+          />
         ))}
-
       </div>
     </div>
-
   );
 }
 
 export default PageEmploye;
-

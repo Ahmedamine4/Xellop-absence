@@ -27,8 +27,21 @@ function PageEmploye() {
 return (
 <div className='manager-dashboard'>
 <Navbar role={role} />
+  <div className="info-submit-solde">
+      <div className="employee-info">
+        <div className="inner">
+          <h1>{firstName} {lastName}</h1>
+          <div className="description">
+            <p>Rôle: {role}</p>
+            <p>Manager ID: {id_manager}</p>
+          </div>
+        </div>
+      </div>
+      <div className='solde-nouvelledemande'></div>
+    </div>
+  <div/>
  <div className='managerheader'>
-  <h1>Bonjour {firstName} {lastName} tu es un {role}</h1>
+  <h2>Gestion des abscence</h2>
           {leaveRequests
           .filter(leaveRequests => leaveRequests.manager_id === userid && leaveRequests.status === "En Cours")
           .map(request => (

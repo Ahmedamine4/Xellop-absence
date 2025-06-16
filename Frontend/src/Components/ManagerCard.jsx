@@ -10,16 +10,35 @@ function Managercard({ start_date, end_date, type, statut, first_name, last_name
     return Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) + 1;
   };
   
-  const statutstyle = `badge ${statut.toLowerCase().replace(" ", "-")}`;
+  const statutstyle = `mcheck ${statut.toLowerCase().replace(" ", "-")}`;
   return (
       <section className="manager-card">
-          <span> {first_name} {last_name} </span>
-          <span>{type}</span>
-          <span>Demande fait le JJ-MM-YYYY</span>
-          <span>{new Date(start_date).toLocaleDateString("fr-FR")}</span>
-          <span>{new Date(end_date).toLocaleDateString("fr-FR")}</span>
-          <span>{calculateDays(start_date, end_date)}</span>
-          <span className={statutstyle}>{statut}</span>
+        <div className="mcard-info">
+          <span className="mname"> {first_name} {last_name} </span>
+          <span>Type de congé : <strong>{type}</strong></span>
+          <span>Demande fait le : <strong>JJ-MM-YYYY</strong></span>
+          <span>Date de début : <strong>{new Date(start_date).toLocaleDateString("fr-FR")}</strong></span>
+          <span>Date de fin : <strong>{new Date(end_date).toLocaleDateString("fr-FR")}</strong></span>
+          <span>Nombre de jours : <strong>{calculateDays(start_date, end_date)}</strong></span>
+        </div>
+<form className="statutssubmit">
+  <label className="mstatut en-cours">
+    <input type="radio" name="statut" value="En Cours" />
+    <span className="checkmark">✓</span>
+    En Cours
+  </label>
+  <label className="mstatut validé">
+    <input type="radio" name="statut" value="Validé" />
+    <span className="checkmark">✓</span>
+    Accepter
+  </label>
+  <label className="mstatut refusé">
+    <input type="radio" name="statut" value="Refusé" />
+    <span className="checkmark">✓</span>
+    Refuser
+  </label>
+  <button className="msubmitboutton">Submit</button>
+</form>
       </section>
   )
 }

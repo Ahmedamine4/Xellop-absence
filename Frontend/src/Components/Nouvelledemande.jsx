@@ -3,16 +3,30 @@ import axios from 'axios';
 import "./Cards.css"
 import CustomSelect from './Congeoptions';
 
-function Nouvelledemande({ userid, setLeaveRequests, setShowForm, showForm, id_manager, first_name, last_name }) {
+function Nouvelledemande({ userid, setLeaveRequests, setShowForm, showForm, id_manager, first_name, last_name, soldeConge }) {
 
       const [typeConge, setTypeConge] = useState('');
       const [dateDebut, setDateDebut] = useState('');
       const [dateFin, setDateFin] = useState('');
+
+      const calculateDays = (start, end) => {
+      const startDate = new Date(start);
+      const endDate = new Date(end);
+      const timeDiff = Math.abs(endDate - startDate);
+      return Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) + 1;
+        };
+
+      const joursDemandes = calculateDays(dateDebut, dateFin);
+  
 const SetBrouillon = async () => {
   if (!userid) {
     alert('Utilisateur non identifié');
     return;
-  }
+    }
+  if (joursDemandes > soldeConge ) {
+    alert(`Vous n'avez que ${soldeConge} jour(s) de congé restant.`);
+    return;
+    }
   try {
     await axios.post('http://localhost:5000/api/leaves', {
       employee_id: userid,
@@ -39,11 +53,15 @@ const SetBrouillon = async () => {
   }
 };
 
-      const handleSubmit = async (e) => { //quand l'utilisateur soumet le formulaire de demande de congé.
+    const handleSubmit = async (e) => { //quand l'utilisateur soumet le formulaire de demande de congé.
     e.preventDefault();
     if (!userid) {
       alert('Utilisateur non identifié');
       return;
+    }
+    if (joursDemandes > soldeConge ) {
+    alert(`Vous n'avez que ${soldeConge} jour(s) de congé restant.`);
+    return;
     }
 
     try {

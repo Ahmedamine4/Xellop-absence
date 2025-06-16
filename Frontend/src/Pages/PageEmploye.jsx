@@ -67,6 +67,7 @@ function PageEmploye() {
               showForm={showForm} 
               first_name={firstName} 
               last_name={lastName}
+              soldeConge={jour_res}
               />
       <div className="leave-requests">
         <h2>Historique des demandes de congé</h2>

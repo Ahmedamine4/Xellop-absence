@@ -5,6 +5,7 @@ import axios from 'axios';
 import Nouvelledemande from "../Components/Nouvelledemande";
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import Navbar from "../Components/navbar";
 
 function PageEmploye() {
 
@@ -15,16 +16,9 @@ function PageEmploye() {
   const id_manager = localStorage.getItem('manager_id');
   const userid = localStorage.getItem('employee_id'); 
 
-  const [selectcollab, setSelectcollab] = useState(false);
   const [leaveRequests, setLeaveRequests] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const percentage = (jour_res / 30)*100;
-
-  useEffect(() => {
-    if (selectcollab && role === "manager") {
-      window.location.href = '/Page-manager';
-    }
-  }, [selectcollab, role]);
 
   useEffect(() => {
     if (userid) {
@@ -36,6 +30,7 @@ function PageEmploye() {
 
   return (
     <div className="employee-dashboard">
+      <Navbar role={role} />
       <div className="info-submit-solde">
 
       <div className="employee-info">
@@ -47,14 +42,7 @@ function PageEmploye() {
           </div>
         </div>
       </div>
-            <div className="navbar">
-        <div className="collaborateurnav" type="button">
-          <h1>Collaborateur</h1>
-        </div>
-        <div className="managernav" type="button" onClick={setSelectcollab}>
-          <h1>Manager</h1>
-        </div>
-      </div>
+
         <div className="solde-nouvelledemande">
             <div className="circularprogresssolde">
               <h1>Solde de Congé </h1>
@@ -71,7 +59,15 @@ function PageEmploye() {
             </div>
             </div>
         </div>
-            <Nouvelledemande setLeaveRequests={setLeaveRequests} userid={userid}  setShowForm={setShowForm} showForm={showForm} />
+            <Nouvelledemande 
+              setLeaveRequests={setLeaveRequests} 
+              userid={userid} 
+              id_manager={id_manager} 
+              setShowForm={setShowForm} 
+              showForm={showForm} 
+              first_name={firstName} 
+              last_name={lastName}
+              />
       <div className="leave-requests">
         <h2>Historique des demandes de congé</h2>
         <div className="Title">
@@ -82,13 +78,16 @@ function PageEmploye() {
           <span>Type</span>
           <span className="statut">Statut</span>
         </div>
-        {leaveRequests.map(request => (
+        {leaveRequests
+          .filter(leaveRequests => leaveRequests.employee_id === userid )
+          .map(request => (
           <Demandecard
             key={request.id}
             start_date={request.start_date}
             end_date={request.end_date}
             type={request.type}
             statut={request.status}
+            employee_id={request.employee_id}
 />
         ))}
 

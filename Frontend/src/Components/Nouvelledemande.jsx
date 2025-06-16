@@ -3,7 +3,7 @@ import axios from 'axios';
 import "./Cards.css"
 import CustomSelect from './Congeoptions';
 
-function Nouvelledemande({ userid, setLeaveRequests, setShowForm, showForm }) {
+function Nouvelledemande({ userid, setLeaveRequests, setShowForm, showForm, id_manager, first_name, last_name }) {
 
       const [typeConge, setTypeConge] = useState('');
       const [dateDebut, setDateDebut] = useState('');
@@ -19,7 +19,10 @@ const SetBrouillon = async () => {
       start_date: dateDebut,
       end_date: dateFin,
       type: typeConge,
-      status: 'Brouillon'
+      status: 'Brouillon',
+      manager_id: id_manager,
+      first_name: first_name,
+      last_name: last_name,
     });
 
     const response = await axios.get(`http://localhost:5000/api/leaves/${userid}`);
@@ -48,7 +51,11 @@ const SetBrouillon = async () => {
         employee_id: userid,
         start_date: dateDebut,
         end_date: dateFin,
-        type: typeConge
+        type: typeConge,
+        manager_id: id_manager,
+        status: 'En Cours',
+        first_name: first_name,
+        last_name: last_name,
       });
 
       const response = await axios.get(`http://localhost:5000/api/leaves/${userid}`);

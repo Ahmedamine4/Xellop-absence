@@ -13,70 +13,53 @@
   overflow-x: hidden;
 
 }
-.navbar{
-  display: flex;
-  background-color: #9091B6;
-  width: 20rem;
-  height: 2rem;
-  border-radius: 1rem;
-  color: #111271;
+.manager-dashboard{
+  flex-direction: column;
+  position: fixed;
+  overflow-y: auto;  
+  top: 0;
+  left: 0;
+  width: 100vw;   
+  height: 100vh;
+  background: #0F0F28 ;
+  z-index: 0; 
   justify-content: center;
   align-items: center;
-  flex-direction: row;
+  overflow-x: hidden;
 }
-.collaborateurnav{
+.managerheader{
   display: flex;
-  background-color: #FFAE62;
-  text-align: center;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 50%;
-  height: 2rem;
-  border-radius: 1rem;
-  margin-left: 0;
-}
-.collaborateurnav h1{
-  font-family: Inter;
-  font-size: .8rem;
-  font-style: normal;
-  font-weight: 700;
-}
-.managernav{
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  width: 50%;
-  height: 2rem;
-  border-radius: 1rem;
-  margin-left: 0;
-}
-.managernav h1{
-  font-family: Inter;
-  font-size: .8rem;
-  font-style: normal;
-  font-weight: 600;
+  margin-left: 15vw;
+  margin-right: 15vw;
+  margin-top: 6rem;
 }
 .info-submit-solde{
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   margin-left: 15vw;
   margin-right: 15vw;
   margin-top: 3rem;
+  box-sizing: border-box;
 }
 .employee-info{
-    display: block;
+    display: inline-block;
     width: 16vw;
     min-width: 16rem;
     justify-content: center;
     text-align: center;
 }
 .solde-nouvelledemande{
-  display: flex;
+  display: inline-block;
+  margin-right: 0px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  justify-self: end;
 }
 .circularprogresssolde{
   margin-bottom: 3rem;

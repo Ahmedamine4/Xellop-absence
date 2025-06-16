@@ -2,6 +2,7 @@ import express from 'express';
 import { createLeaveRequest, getLeaveRequestsByUser } from '../controllers/congeController.js';
 import pool from '../db.js';
 import { updateLeave } from '../controllers/congeController.js';
+import { updateLeaveStatus } from '../controllers/congeController.js';
 
 const router = express.Router();
 
@@ -31,6 +32,7 @@ router.get('/one/:id', async (req, res) => {
     res.status(500).json({ message: 'Erreur serveur' });
   }
 });
+router.put('/one/:id', updateLeaveStatus);
 
 
 export default router;

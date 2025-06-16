@@ -38,6 +38,28 @@ export const getLeaveRequestsByUser = async (req, res) => {
     res.status(500).json({ error: 'Erreur serveur' });
   }
 };
+
+export const updateLeaveStatus = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  try {
+    const [result] = await pool.query(
+      "UPDATE conge SET status = ? WHERE id = ?",
+      [status, id]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: "Demande non trouvée" });
+    }
+
+    res.status(200).json({ message: "Statut mis à jour avec succès" });
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour :", error);
+    res.status(500).json({ message: "Erreur serveur" });
+  }
+};
+
 export const updateLeave = async (req, res) => {
   const { id } = req.params;
   const { start_date, end_date, type, status } = req.body;

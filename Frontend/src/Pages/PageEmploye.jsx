@@ -45,7 +45,9 @@ const handleDelete = async (id) => {
   // Envoyer une demande : mettre à jour le statut
   const handleSend = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/leaves/${id}`, { status: "En Cours" });
+      await axios.put(`http://localhost:5000/api/leaves/one/${id}`, {
+        status: "En Cours"
+      });
       loadLeaves();
       alert("Demande envoyée !");
     } catch (error) {

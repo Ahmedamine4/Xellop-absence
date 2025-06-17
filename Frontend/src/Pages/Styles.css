@@ -39,7 +39,7 @@
 .info-submit-solde{
   display: grid;
   grid-template-columns: 1fr 1fr;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   margin-left: 15vw;
   margin-right: 15vw;
@@ -101,16 +101,25 @@
 
 }
 .Title{
-  border-radius: 10px;
+  background-color: #19193b;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   align-items: center;
   justify-content: center;
   width: 70vw;
-  height: 50pxpx;
+  height: 70px;
   box-sizing: border-box;
+  margin-top: 2rem;
+  margin-left: .25em;
+  margin-right: .25em;
   padding: 0.5rem;
-  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  border-left: 1px solid rgba(255, 255, 255, 0.25);
+  border-right: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 1px 20px rgba(0, 0, 0, 0.25);
 }
 .Title span {
   flex: 1; 
@@ -125,6 +134,28 @@
   text-align: center;
 }
 
+.titleandfiltres{
+  display: flex;
+  margin-top: 5rem;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 15vw;
+  margin-right: 15vw;
+}
+
+.filtres{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 0rem;
+}
+.filtreboutton{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+}
 
 .leave-requests{
     display: flex;
@@ -133,8 +164,33 @@
     margin-left: 15vw;
 }
 .Title-leave-requests  {
-  margin-top: 3rem;
-  
+  text-align: left;
+  margin-left: 1rem;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  gap: 8px;
+  margin-top: 20px;
+  margin-bottom: 5rem;
+}
+
+.pagination button {
+  padding: 6px 10px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background: #5B45FF;
+  color: white;
+  font-weight: bold;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
 
 .description {

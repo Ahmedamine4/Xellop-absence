@@ -5,6 +5,9 @@ import Nouvelledemande from "../Components/Nouvelledemande";
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import Navbar from "../Components/navbar";
+import Congefilter from "../Components/Congefilter";
+import Anneefilter from "../Components/Anneefilter";
+import Statutfilter from "../Components/Staturfilter";
 
 function PageEmploye() {
   const firstName = localStorage.getItem('first_name');
@@ -17,7 +20,15 @@ function PageEmploye() {
   const [leaveRequests, setLeaveRequests] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editDraft, setEditDraft] = useState(null);
+  const [typeConge, setTypeConge] = useState('');
+  const [statutConge, setStatutConge] = useState('');
+  const [selectedYear, setSelectedYear] = useState('');
   const percentage = (jour_res / 30) * 100;
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+  const totalPages = Math.ceil(leaveRequests.filter(r => r.employee_id === userid).length / itemsPerPage);
+
 
   const loadLeaves = async () => {
     try {
@@ -127,8 +138,22 @@ const handleDelete = async (id) => {
           loadLeaves();
         }}
       />
+      <div className="titleandfiltres">
+
       <div className="Title-leave-requests">
       <h2>Historique des demandes de congé</h2>
+      </div>
+      <div className="filtres">
+        <div className="filtreboutton">
+              <Congefilter value={typeConge} onChange={setTypeConge} />
+        </div>
+        <div className="filtreboutton">
+              <Anneefilter value={selectedYear} onChange={setSelectedYear} leaveRequests={leaveRequests} />
+        </div>
+        <div className="filtreboutton">
+              <Statutfilter value={statutConge} onChange={setStatutConge} />
+        </div>
+      </div>
       </div>
       <div className="leave-requests">
         <div className="Title">
@@ -140,7 +165,11 @@ const handleDelete = async (id) => {
           <span className="statut">Statut</span>
         </div>
         {leaveRequests
-          .filter(leaveRequests => leaveRequests.employee_id === userid )
+          .filter(leaveRequests => leaveRequests.employee_id === userid)
+          .filter(leaveRequests => !typeConge || typeConge === "All" || leaveRequests.type === typeConge)
+          .filter(leaveRequests => !statutConge || statutConge === "All" || leaveRequests.status === statutConge)
+          .filter(leaveRequest => !selectedYear || selectedYear === "All" || new Date(leaveRequest.date_soumission).getFullYear().toString() === selectedYear )
+          .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
           .map(request => (
           <Demandecard
             id={request.id}
@@ -156,6 +185,39 @@ const handleDelete = async (id) => {
           />
         ))}
       </div>
+      <div className="pagination">
+        <button onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>
+        {'|<'}
+        </button>
+
+        <button onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
+          {'<'}
+        </button>
+
+        {Array.from({ length: totalPages }, (_, i) => i + 1)
+          .filter(page =>
+          page === 1 || 
+          page === totalPages || 
+          (page >= currentPage - 1 && page <= currentPage + 1)
+         )
+        .map(page => (
+        <button
+          key={page}
+          onClick={() => setCurrentPage(page)}
+          className={currentPage === page ? "active" : ""}
+        >
+          {page}
+        </button>
+        ))}
+
+        <button onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>
+          {'>'}
+        </button>
+
+        <button onClick={() => setCurrentPage(totalPages)} disabled={currentPage === totalPages}>
+         {'>|'}
+        </button>
+        </div>
     </div>
   );
 }

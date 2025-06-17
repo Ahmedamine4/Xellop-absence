@@ -31,10 +31,10 @@ function Demandecard({ id, date_soumission, start_date, end_date, type, statut, 
       <span className={statutstyle}>{statut}</span>
     </section>
     {statut === "Brouillon" && (
-        <span>
-          <div className="icon-container"><img onClick={() => onEdit(id)} src={editIcon} alt="Modifier" /></div>
-          <div className="icon-container"><img onClick={() => onDelete(id)} src={deleteIcon} alt="Supprimer" /></div>
-          <div className="icon-container"><img onClick={() => onSend(id)} src={sendIcon} alt="Envoyer" /></div>
+        <span className="modification-brouillant">
+          <div className="icon-container modifier"><img onClick={() => onEdit(id)} src={editIcon} alt="Modifier" /></div>
+          <div className="icon-container supprimer"><img onClick={() => onDelete(id)} src={deleteIcon} alt="Supprimer" /></div>
+          <div className="icon-container envoyer"><img onClick={() => onSend(id)} src={sendIcon} alt="Envoyer" /></div>
         </span>
       )}
     </div>

@@ -4,7 +4,7 @@ import Navbar from '../Components/navbar';
 import Managercard from '../Components/ManagerCard';
 import axios from 'axios';
 
-function PageEmploye() {
+function PageManager() {
 
     const firstName = localStorage.getItem('first_name');
     const lastName = localStorage.getItem('last_name');
@@ -65,4 +65,4 @@ return (
 
 }
 
-export default PageEmploye;
+export default PageManager;

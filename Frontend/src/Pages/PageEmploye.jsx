@@ -92,36 +92,39 @@ const handleDelete = async (id) => {
 
   return (
     <div className="employee-dashboard">
-      <Navbar role={role} />
-      <div className="info-submit-solde">
+      <section className="navigation-bar-left">
+        <div className="navigation-employee">
+        <h2>
+          Navigation
+        </h2>
+        <Navbar role={role} />
 
-      <div className="employee-info">
-        <div className="inner">
-          <h1>{firstName} {lastName}</h1>
-          <div className="description">
-            <p>Rôle: {role}</p>
-            <p>Manager ID: {id_manager}</p>
-          </div>
-        </div>
-      </div>
-
+        <h2>
+          Solde de Congé 
+        </h2>
         <div className="solde-nouvelledemande">
             <div className="circularprogresssolde">
-              <h1>Solde de Congé </h1>
               <div className="progress-bar">
                 <div className="solde-progress" style={{ width: `${percentage}%` }}>
                   <p>{jour_res}</p>
                 </div>
               </div>
             </div>
-            <div >
-                <button className='submitboutton' onClick={() => { setShowForm(!showForm); setEditDraft(null); }}>
+        </div>
+          <button className='submitboutton' onClick={() => { setShowForm(!showForm); setEditDraft(null); }}>
               {showForm ? "Fermer le formulaire" : "Faire une demande d'absence"}
-            </button>
-          </div>
+          </button>
+        </div>
+        <div className="employee-info">
+          <div className="inner">
+            <h1>{firstName} {lastName}</h1>
+            <div className="description">
+              <p>Rôle: {role}</p>
+              <p>Manager ID: {id_manager}</p>
+            </div>
         </div>
       </div>
-
+      
        <Nouvelledemande
         userid={userid}
         setLeaveRequests={setLeaveRequests}
@@ -138,6 +141,8 @@ const handleDelete = async (id) => {
           loadLeaves();
         }}
       />
+      </section>
+      <section className="tableau-historique-right">
       <div className="titleandfiltres">
 
       <div className="Title-leave-requests">
@@ -218,6 +223,7 @@ const handleDelete = async (id) => {
          {'>|'}
         </button>
         </div>
+        </section>
     </div>
   );
 }

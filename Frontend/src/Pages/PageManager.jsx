@@ -26,22 +26,27 @@ function PageManager() {
 
 return (
 <div className='manager-dashboard'>
-<Navbar role={role} />
-  <div className="info-submit-solde">
-      <div className="employee-info">
-        <div className="inner">
-          <h1>{firstName} {lastName}</h1>
-          <div className="description">
-            <p>Rôle: {role}</p>
-            <p>Manager ID: {id_manager}</p>
-          </div>
+<section className="navigation-bar-left">
+        <div className="navigation-employee">
+        <h2>
+          Navigation
+        </h2>
+        <Navbar role={role} />
+        </div>
+        <div className="employee-info">
+          <div className="inner">
+            <h1>{firstName} {lastName}</h1>
+            <div className="description">
+              <p>Rôle: {role}</p>
+              <p>Manager ID: {id_manager}</p>
+            </div>
         </div>
       </div>
-      <div className='solde-nouvelledemande'></div>
-    </div>
-  <div/>
- <div className='managerheader'>
-  <h2>Gestion des abscence</h2>
+      
+      </section>
+ <section className='managerheader'>
+          <h2>Gestion des abscence</h2>
+          <div className='managerdemandeabscence'>
           {leaveRequests
           .filter(leaveRequests => leaveRequests.manager_id === userid && leaveRequests.status === "En Cours")
           .map(request => (
@@ -58,7 +63,8 @@ return (
             date_soumission={request.date_soumission}
 />
         ))}
- </div>
+        </div>
+ </section>
 
 </div>
 )

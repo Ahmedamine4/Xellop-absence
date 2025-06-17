@@ -1,63 +1,58 @@
 .navbar{
   display: flex;
-  position: absolute;
-  z-index: 1000;
-  top: 0;
-  margin-left: 40vw;
-  margin-right: 40vw;
-  margin-top: 3rem;
-  width: 20vw;
-  background-color: #9091B6;
+  margin-top: 2rem;
+  margin-bottom: 4rem;
+  width: 80%;
   height: 2rem;
-  border-radius: 1rem;
-  color: #111271;
+  color: #ABA3FF;
   justify-content: center;
   align-items: center;
-  flex-direction: row;
+  flex-direction: column;
+  margin-left: 10%;
 }
 .collaborateurnav{
   display: flex;
-  background-color: #FFAE62;
-  text-align: center;
-  justify-content: center;
+  width: 100%;
+  background-color: #1D1D4D;
+  text-align: left;
   align-items: center;
-  width: 50%;
-  height: 2rem;
-  border-radius: 1rem;
-  margin-left: 0;
+  height: 3rem;
+  border-radius: 10px;
   cursor: default;
 }
 .collaborateurnav.active{
-  background-color: #9091B6;
+  background-color: transparent;
   cursor: pointer;
 }
 .collaborateurnav h1{
   font-family: Inter;
-  font-size: .8rem;
+  font-size: 13px;
   font-style: normal;
   font-weight: 700;
+  line-height: normal;
+  margin-left: 2rem;
 }
 .managernav{
   display: flex;
-  background-color: #FFAE62;
-  text-align: center;
-  justify-content: center;
+  width: 100%;
+  background-color: #1D1D4D;
+  text-align: left;
   align-items: center;
-  width: 50%;
-  height: 2rem;
-  border-radius: 1rem;
-  margin-left: 0;
+  height: 3rem;
+  border-radius: 10px;
   cursor: default;
 }
 .managernav.active{
-  background-color: #9091B6;
+  background-color: transparent;
   cursor: pointer;
 }
 .managernav h1{
   font-family: Inter;
-  font-size: .8rem;
+  font-size: 13px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 700;
+  line-height: normal;
+  margin-left: 2rem;
 }
 
 .Card-modif{
@@ -73,7 +68,7 @@
   grid-template-columns: repeat(6, 1fr);
   align-items: center;
   justify-content: center;
-  width: 70vw;
+  width: 90%;
   height: 90px;
   box-sizing: border-box;
   margin: 0rem .25em;
@@ -217,19 +212,6 @@
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
-}
-.submitboutton{
-  display: flex;
-  background-color: #FBA452;
-  color: #1D1D4D;
-  border-radius: .5rem;
-  padding: 1rem 2rem;
-  font-size: 1rem;
-  font-weight: bold;
-  text-align: center;
-}
-.submitboutton:hover{
-  background-color:#FFBD7E ;
 }
 .enregistrerdemande{
   background-color: #FBA452;
@@ -393,7 +375,7 @@ input[type="date"] {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-left: 1.5rem;
+  padding-left: 1rem;
   height: 90px;
   flex-direction: row;
 }
@@ -407,7 +389,7 @@ input[type="date"] {
   position: relative;
   background-color: #9091B6;
   cursor: pointer;
-  margin: 5px;
+  margin: 3px;
 }
 .icon-container.supprimer:hover {
   background-color: #CC5759;

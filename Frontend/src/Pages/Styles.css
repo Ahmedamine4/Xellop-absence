@@ -1,5 +1,5 @@
 .employee-dashboard{
-  flex-direction: column;
+  flex-direction: row;
   position: fixed;
   overflow-y: auto;  
   top: 0;
@@ -13,8 +13,40 @@
   overflow-x: hidden;
 
 }
-.manager-dashboard{
+.navigation-bar-left{
+  display: flex;
+  justify-content: space-between;
   flex-direction: column;
+  box-sizing: border-box;
+  left: 0;
+  height: 100vh;
+  width: 15vw;
+  min-width: 15rem;
+  position: absolute;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+.navigation-bar-left h2{
+  color: #BCBCD4;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-align: left;
+  margin-left: 10%;
+}
+.navigation-employee{
+  margin-top: 7rem;
+}
+.tableau-historique-right{
+  display: flex;
+  margin-left: 15vw;
+  flex-direction: column;
+  right: 0;
+}
+
+.manager-dashboard{
+  flex-direction: row;
   position: fixed;
   overflow-y: auto;  
   top: 0;
@@ -31,38 +63,36 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   margin-left: 15vw;
-  margin-right: 15vw;
-  margin-top: 3rem;
+  margin-top: 5rem;
+  text-align: left;
 }
-.info-submit-solde{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  flex-direction: column;
-  justify-content: center;
-  margin-left: 15vw;
-  margin-right: 15vw;
-  margin-top: 3rem;
-  box-sizing: border-box;
+.managerheader h2{
+  display: flex;
+  margin-left: 4%;
 }
+.managerdemandeabscence{
+    margin-left: 3%;
+}
+
 .employee-info{
     display: inline-block;
-    width: 16vw;
-    min-width: 16rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
     justify-content: center;
     text-align: center;
 }
 .solde-nouvelledemande{
-  display: inline-block;
-  margin-right: 0px;
+  display: flex;
+  width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   justify-self: end;
 }
 .circularprogresssolde{
-  margin-bottom: 3rem;
+  display: flex;
+  width: 100%;
+  margin-bottom: 4rem;
   font-family: Inter;
   font-size: 8px;
   font-style: normal;
@@ -80,15 +110,16 @@
 .progress-bar{
   display: flex;
   background-color: #9091B6;
-  border-radius: .5rem;
-  width: 15vw;
-  height: 1rem;
+  border-radius: .3rem;
+  margin-left: 10%;
+  width: 80%;
+  height: 1.5rem;
 }
 .solde-progress{
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: .5rem;
+    border-radius: .3rem;
     background-color: #5B45FF;
     color: #b4b5d4;
 }
@@ -100,6 +131,22 @@
     font-weight: 600;
 
 }
+.submitboutton{
+  display: flex;
+  width: 80%;
+  margin-left: 10%;
+  background-color: #5B45FF;
+  color: #FFFFFF;
+  border-radius: .5rem;
+  padding: 1rem 2rem;
+  font-family: Inter;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: center;
+}
+.submitboutton:hover{
+  background-color:#9082ff ;
+}
 .Title{
   background-color: #19193b;
   border-top-left-radius: 10px;
@@ -108,7 +155,7 @@
   grid-template-columns: repeat(6, 1fr);
   align-items: center;
   justify-content: center;
-  width: 70vw;
+  width: 90%;
   height: 70px;
   box-sizing: border-box;
   margin-top: 2rem;
@@ -140,8 +187,8 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-left: 15vw;
-  margin-right: 15vw;
+  margin-left: 3%;
+  margin-right: 10%;
 }
 
 .filtres{
@@ -161,7 +208,7 @@
     display: flex;
     flex-direction: column;
     margin-top: 0rem;
-    margin-left: 15vw;
+    margin-left: 3%;
 }
 .Title-leave-requests  {
   text-align: left;
@@ -170,9 +217,9 @@
 .pagination {
   display: flex;
   justify-content: center;
-  width: 100vw;
+  width: 100%;
   gap: 8px;
-  margin-top: 20px;
+  margin-top: 3rem;
   margin-bottom: 5rem;
 }
 
@@ -213,7 +260,7 @@
 
 .employee-info p{
     margin-top: 0px;
-    color: #FFF;
+    color: #9091B6;
     font-family: Inter;
     font-size: 14px;
     font-style: normal;
@@ -231,6 +278,5 @@
     padding: 15px;
     padding-left:3rem;
     padding-right:3rem;
-    background: #1D1D4D;
     text-align: left;
 }

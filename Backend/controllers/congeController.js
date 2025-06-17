@@ -22,6 +22,22 @@ export const createLeaveRequest = async (req, res) => {
     res.status(500).json({ error: 'Erreur serveur' });
   }
 };
+export const DemandeByUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const [rows] = await pool.execute(
+      'SELECT * FROM conge WHERE manager_id = ? ORDER BY start_date DESC',
+      [userId]
+    );
+    console.log("Requête de congés pour l'utilisateur :", userId, "Résultats :", rows);
+
+    res.json(rows);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des congés :', error);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+};
 
 export const getLeaveRequestsByUser = async (req, res) => {
   try {
@@ -31,6 +47,22 @@ export const getLeaveRequestsByUser = async (req, res) => {
       'SELECT * FROM conge WHERE employee_id = ? ORDER BY start_date DESC',
       [userId]
     );
+
+    res.json(rows);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des congés :', error);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+};
+export const getLeaveStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const [rows] = await pool.execute(
+      'SELECT * FROM conge WHERE id = ?',
+      [id]
+    );
+    console.log("Requête de congés pour l'ID :", id, "Résultats :", rows);
 
     res.json(rows);
   } catch (error) {

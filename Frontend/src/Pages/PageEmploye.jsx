@@ -59,10 +59,10 @@ const handleDelete = async (id) => {
   // Modifier un brouillon 
   const handleEdit = async (id) => {
   try {
-    const response = await axios.get(`http://localhost:5000/api/leaves/one/${id}`);
-    console.log(" Données reçues depuis backend pour modification :", response.data);
+    const response = await axios.get(`http://localhost:5000/api/leaves/two/${id}`);
+    console.log(" Données reçues depuis backend  :", response.data);
     setShowForm(true);
-    setEditDraft(response.data); 
+    setEditDraft(response.data[0]); 
 
   } catch (error) {
     console.error("Erreur lors de la modification :", error);

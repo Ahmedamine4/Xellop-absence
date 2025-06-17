@@ -17,7 +17,7 @@ function PageEmploye() {
 
       useEffect(() => {
     if (userid) {
-      axios.get(`http://localhost:5000/api/leaves/${userid}`)
+      axios.get(`http://localhost:5000/api/leaves/one/${userid}`)
         .then(response => setLeaveRequests(response.data))
         .catch(error => console.error('Erreur de chargement des congés :', error));
     }
@@ -47,6 +47,7 @@ return (
           .map(request => (
           <Managercard
             key={request.id}
+            id={request.id}
             first_name={request.first_name}
             last_name={request.last_name}
             start_date={request.start_date}

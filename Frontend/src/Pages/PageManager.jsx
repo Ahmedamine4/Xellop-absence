@@ -54,6 +54,7 @@ return (
             type={request.type}
             statut={request.status}
             employee_id={request.employee_id}
+            date_soumission={request.date_soumission}
 />
         ))}
  </div>

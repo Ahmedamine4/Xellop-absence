@@ -1,7 +1,8 @@
 import "./Cards.css"
 
 
-function Managercard({ start_date, end_date, type, statut, first_name, last_name}) {
+function Managercard({ start_date, end_date, type, statut, first_name, last_name, date_soumission }) {
+
     
   const calculateDays = (start, end) => {
     const startDate = new Date(start);
@@ -16,7 +17,7 @@ function Managercard({ start_date, end_date, type, statut, first_name, last_name
         <div className="mcard-info">
           <span className="mname"> {first_name} {last_name} </span>
           <span>Type de congé : <strong>{type}</strong></span>
-          <span>Demande fait le : <strong>JJ-MM-YYYY</strong></span>
+          <span>Demande fait le : <strong>{new Date(date_soumission).toLocaleDateString("fr-FR")}</strong></span>
           <span>Date de début : <strong>{new Date(start_date).toLocaleDateString("fr-FR")}</strong></span>
           <span>Date de fin : <strong>{new Date(end_date).toLocaleDateString("fr-FR")}</strong></span>
           <span>Nombre de jours : <strong>{calculateDays(start_date, end_date)}</strong></span>

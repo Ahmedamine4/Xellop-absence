@@ -14,6 +14,11 @@ function PageManager() {
     const userid = localStorage.getItem('employee_id'); 
   
     const [leaveRequests, setLeaveRequests] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 4;
+    const totalPages = Math.ceil(leaveRequests.filter(r => r.employee_id === userid).length / itemsPerPage);
+
+    const [filterName, setfilterName] = useState('');
 
       useEffect(() => {
     if (userid) {
@@ -32,6 +37,20 @@ return (
           Navigation
         </h2>
         <Navbar role={role} />
+        <h2>
+          Filtrer par collaborateur
+        </h2>
+        <div className='filtrerparnom'>
+          <boutton className={`boutton-filtre-nom ${filterName === "All" ? "active" : ""}`}  onClick={() => { setfilterName("All") }} > All </boutton>
+        {[...new Map(
+          leaveRequests
+            .filter(request => request.manager_id === userid && request.status === "En Cours")
+            .map(request => [`${request.first_name} ${request.last_name}`, request])
+          ).values()]
+          .map(request => (
+            <boutton  className={`boutton-filtre-nom ${filterName === request.employee_id ? "active" : ""}`} key={request.id} onClick={() => { setfilterName(request.employee_id) }} >{request.first_name} {request.last_name}</boutton>
+          ))}
+          </div>
         </div>
         <div className="employee-info">
           <div className="inner">
@@ -49,6 +68,8 @@ return (
           <div className='managerdemandeabscence'>
           {leaveRequests
           .filter(leaveRequests => leaveRequests.manager_id === userid && leaveRequests.status === "En Cours")
+          .filter(leaveRequests=> !filterName || filterName === "All" || leaveRequests.employee_id === filterName )
+          .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
           .map(request => (
           <Managercard
             key={request.id}
@@ -63,6 +84,39 @@ return (
             date_soumission={request.date_soumission}
 />
         ))}
+        </div>
+              <div className="pagination">
+        <button onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>
+        {'|<'}
+        </button>
+
+        <button onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
+          {'<'}
+        </button>
+
+        {Array.from({ length: totalPages }, (_, i) => i + 1)
+          .filter(page =>
+          page === 1 || 
+          page === totalPages || 
+          (page >= currentPage - 1 && page <= currentPage + 1)
+         )
+        .map(page => (
+        <button
+          key={page}
+          onClick={() => setCurrentPage(page)}
+          className={currentPage === page ? "active" : ""}
+        >
+          {page}
+        </button>
+        ))}
+
+        <button onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>
+          {'>'}
+        </button>
+
+        <button onClick={() => setCurrentPage(totalPages)} disabled={currentPage === totalPages}>
+         {'>|'}
+        </button>
         </div>
  </section>
 

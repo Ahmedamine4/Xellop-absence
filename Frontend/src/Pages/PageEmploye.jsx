@@ -168,6 +168,7 @@ const handleDelete = async (id) => {
           <span>Nombre de jours</span>
           <span>Type</span>
           <span className="statut">Statut</span>
+          <span className="modification-brouillant">Modification</span>
         </div>
         {leaveRequests
           .filter(leaveRequests => leaveRequests.employee_id === userid)

@@ -15,6 +15,7 @@
 }
 .navigation-bar-left{
   display: flex;
+  position: fixed;
   justify-content: space-between;
   flex-direction: column;
   box-sizing: border-box;
@@ -22,7 +23,6 @@
   height: 100vh;
   width: 15vw;
   min-width: 15rem;
-  position: absolute;
   border-right: 1px solid rgba(255, 255, 255, 0.15);
 }
 .navigation-bar-left h2{
@@ -34,6 +34,45 @@
   line-height: normal;
   text-align: left;
   margin-left: 10%;
+}
+
+.filtrerparnom{
+  display: flex;
+  padding-top: .5rem;
+  flex-direction: column;
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
+  color: #ABA3FF;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-align: left;
+  margin-left: 10%;
+}
+.boutton-filtre-nom{
+  display: flex;
+  width: 73%;
+  background: transparent;
+  color: #ABA3FF;
+  border: none;
+  padding: 0.7rem 1rem;
+  text-align: left;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border-left: 4px solid transparent;
+  transition: all 0.2s ease-in-out;
+}
+.boutton-filtre-nom:hover {
+  color: #FFFFFF;
+}
+.boutton-filtre-nom.active{
+  background-color: #19193b;
+  color: white;
+  border-left: 4px solid #ABA3FF; /* ligne gauche visible */
+  border-radius: 4px;
 }
 .navigation-employee{
   margin-top: 7rem;
@@ -72,7 +111,10 @@
   margin-left: 4%;
 }
 .managerdemandeabscence{
+    display: flex;
     margin-left: 3%;
+    gap: 2rem;
+    flex-wrap: wrap;
 }
 
 .employee-info{
@@ -143,6 +185,7 @@
   font-size: 13px;
   font-weight: bold;
   text-align: center;
+  transition: all 0.2s ease-in-out;
 }
 .submitboutton:hover{
   background-color:#9082ff ;
@@ -150,12 +193,11 @@
 .Title{
   background-color: #19193b;
   border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   align-items: center;
   justify-content: center;
-  width: 90%;
+  width: 100%;
   height: 70px;
   box-sizing: border-box;
   margin-top: 2rem;
@@ -165,17 +207,19 @@
   border-top: 1px solid rgba(255, 255, 255, 0.25);
   border-bottom: 1px solid rgba(255, 255, 255, 0.25);
   border-left: 1px solid rgba(255, 255, 255, 0.25);
-  border-right: 1px solid rgba(255, 255, 255, 0.25);
+  border-right: 1px solid transparent;
   box-shadow: 0 1px 20px rgba(0, 0, 0, 0.25);
 }
 .Title span {
   flex: 1; 
   text-align: center;
+  font-weight: 600;
 } 
 .statut {
   display: inline-block;
-  padding: 0.7rem 0rem;
-  width: 10rem;
+  padding: 0.5rem 0rem;
+  width: 60%;
+  margin-left: 20%;
   border-radius: 20px;
   font-size: 0.9rem;
   text-align: center;

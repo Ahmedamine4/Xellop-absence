@@ -29,7 +29,6 @@ function Demandecard({ id, date_soumission, start_date, end_date, type, statut, 
       <span>{calculateDays(start_date, end_date)}</span>
       <span>{type}</span>
       <span className={statutstyle}>{statut}</span>
-    </section>
     {statut === "Brouillon" && (
         <span className="modification-brouillant">
           <div className="icon-container modifier"><img onClick={() => onEdit(id)} src={editIcon} alt="Modifier" /></div>
@@ -37,6 +36,7 @@ function Demandecard({ id, date_soumission, start_date, end_date, type, statut, 
           <div className="icon-container envoyer"><img onClick={() => onSend(id)} src={sendIcon} alt="Envoyer" /></div>
         </span>
       )}
+    </section>
     </div>
   )
 }

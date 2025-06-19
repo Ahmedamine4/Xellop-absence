@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
-import myImage from './assets/xelopshomeimage.png';
+import myImage from './assets/XELOPShomepage.jpg';
 import Xelops from "./assets/xelops.png"
 
 function App() {

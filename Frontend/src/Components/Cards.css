@@ -9,6 +9,7 @@
   align-items: center;
   flex-direction: column;
   margin-left: 10%;
+
 }
 .collaborateurnav{
   display: flex;
@@ -20,6 +21,7 @@
   border-radius: 10px;
   cursor: default;
   transition: all 0.2s ease-in-out;
+
 }
 .collaborateurnav.active{
   background-color: transparent;
@@ -93,7 +95,8 @@
   border-radius: 10px;
   align-items: center;
   width: 45%;
-  height: fit-content;
+  min-width: 30rem;
+  height: auto;
   margin: .5rem .25em;
   padding: 0.5rem;
   font-family: Inter;
@@ -105,7 +108,7 @@
   flex-direction: column;
   margin-bottom: 2rem;
   margin-top: 2rem;
-  margin-left: 4rem;
+  margin-left: 3rem;
 }
 .mcard-info span{
   margin-bottom: .5rem;
@@ -118,7 +121,7 @@
 .statutssubmit{
   display: flex;
   flex-direction: column;
-  margin-right: 4rem;
+  margin-right: 2rem;
   padding: 1.5rem 1rem;
 }
 .mstatut{
@@ -217,6 +220,7 @@
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
+  
 }
 .enregistrerdemande{
   background-color: #FBA452;
@@ -254,6 +258,7 @@
 
 .absence-request-form{
   display: flex;
+  position: fixed;
   z-index: 1001;
   justify-content: center;
   align-items: center;
@@ -408,4 +413,119 @@ input[type="date"] {
 .icon-container.envoyer:hover {
   background-color: #FBA452;
   transition: .6s ease;
+}
+
+@media (max-width:1278px) {
+  .manager-card{
+  width: 90%;
+  min-width: 30rem;
+}
+}
+@media (max-width: 890px) {
+  .navbar{
+  display: flex;
+  border-radius: 10px;
+  background-color: #1D1D4D;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  width: 16rem;
+  height: 2.5rem;
+  color: #ABA3FF;
+  justify-content: center ;
+  align-items: center ;
+  flex-direction: row;
+  margin-left: none ;
+  margin-right: 0rem;
+}
+.collaborateurnav{
+  display: flex;
+  width: 8rem;
+  background-color: #ABA3FF;
+  color: #1D1D4D;
+  text-align: center;
+  align-items: center;
+  height: 2.5rem;
+  border-radius: 10px;
+  cursor: default;
+  transition: all 0.2s ease-in-out;
+
+}
+.collaborateurnav.active{
+  background-color: transparent;
+  color: #ABA3FF;
+  cursor: pointer;
+}
+.collaborateurnav.active:hover{
+  color: white;
+}
+.managernav{
+  display: flex;
+  width: 8rem;
+  background-color: #ABA3FF;
+  color: #1D1D4D;
+  text-align: center;
+  align-items: center;
+  height: 2.5rem;
+  border-radius: 10px;
+  cursor: default;
+  transition: all 0.2s ease-in-out;
+}
+.managernav.active{
+  background-color: transparent;
+  color: #ABA3FF;
+  cursor: pointer;
+}
+.managernav.active:hover{
+  color: white;
+}
+.collaborateurnav h1{
+  font-size: 13px;
+  margin-left: 1.5rem;
+}
+.managernav h1{
+  font-size: 13px;
+  margin-left: none ;
+  text-align: center;
+}
+.custom-filter-container{
+  position: relative;
+  min-width: 6rem;
+}
+.select-button {
+  border-radius: .5rem;
+  padding: 0.7rem 1rem;
+}
+.select-button-filter{
+  border-radius: .8rem;
+  padding: 0.7rem 1rem;
+  font-size: .7rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.option-item {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  color: #ABA3FF;
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+.manager-card{
+  display: flex;
+  background-color: #202046;
+  flex-direction: row;
+  justify-content: space-between;
+  border-radius: 10px;
+  align-items: center;
+  width: 90%;
+  min-width: 30rem;
+  height: fit-content;
+  margin: .5rem .25em;
+  padding: 0.5rem;
+  font-family: Inter;
+  font-weight: 350;
+}
 }

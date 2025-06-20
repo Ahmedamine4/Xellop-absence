@@ -91,6 +91,7 @@ const handleDelete = async (id) => {
   }, [userid]);
 
   return (
+    <>
     <div className="employee-dashboard">
       <section className="navigation-bar-left">
         <div className="navigation-employee">
@@ -121,32 +122,28 @@ const handleDelete = async (id) => {
             <div className="description">
               <p>Rôle: {role}</p>
               <p>Manager ID: {id_manager}</p>
+              <div className="solde-restant-info">
+              <p>Solde:</p>
+              <div className="circularprogresssolde">
+                <div className="progress-bar">
+                  <div className="solde-progress" style={{ width: `${percentage}%` }}>
+                    <p>{jour_res}</p>
+                  </div>
+                </div>
+              </div>
+              </div>
             </div>
         </div>
       </div>
-      
-       <Nouvelledemande
-        userid={userid}
-        setLeaveRequests={setLeaveRequests}
-        setShowForm={setShowForm}
-        showForm={showForm}
-        editDraft={editDraft}
-        id_manager={id_manager}
-        first_name={firstName} 
-        last_name={lastName} 
-        soldeConge={jour_res}
-        onUpdateDone={() => {
-          setEditDraft(null);
-          setShowForm(false);
-          loadLeaves();
-        }}
-      />
       </section>
       <section className="tableau-historique-right">
       <div className="titleandfiltres">
 
       <div className="Title-leave-requests">
       <h2>Historique des demandes de congé</h2>
+        <button className='submitboutton-smallscreen' onClick={() => { setShowForm(!showForm); setEditDraft(null); }}>
+              {showForm ? "Fermer le formulaire" : "Nouvelle demande"}
+        </button>
       </div>
       <div className="filtres">
         <div className="filtreboutton">
@@ -226,6 +223,23 @@ const handleDelete = async (id) => {
         </div>
         </section>
     </div>
+    <Nouvelledemande
+        userid={userid}
+        setLeaveRequests={setLeaveRequests}
+        setShowForm={setShowForm}
+        showForm={showForm}
+        editDraft={editDraft}
+        id_manager={id_manager}
+        first_name={firstName} 
+        last_name={lastName} 
+        soldeConge={jour_res}
+        onUpdateDone={() => {
+          setEditDraft(null);
+          setShowForm(false);
+          loadLeaves();
+        }}
+      />
+      </>
   );
 }
 

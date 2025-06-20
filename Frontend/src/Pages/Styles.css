@@ -16,13 +16,14 @@
 .navigation-bar-left{
   display: flex;
   position: fixed;
+  z-index: 1000;
   justify-content: space-between;
   flex-direction: column;
   box-sizing: border-box;
   left: 0;
   height: 100vh;
   width: 15vw;
-  min-width: 15rem;
+  min-width: 11.5rem;
   border-right: 1px solid rgba(255, 255, 255, 0.15);
 }
 .navigation-bar-left h2{
@@ -79,7 +80,7 @@
 }
 .tableau-historique-right{
   display: flex;
-  margin-left: 15vw;
+  margin-left: max(15vw, 11rem);
   flex-direction: column;
   right: 0;
 }
@@ -102,7 +103,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-left: 15vw;
+  margin-left: max(15vw, 11rem);
   margin-top: 5rem;
   text-align: left;
 }
@@ -122,6 +123,9 @@
     border-top: 1px solid rgba(255, 255, 255, 0.15);
     justify-content: center;
     text-align: center;
+}
+.solde-restant-info{
+  display: none;
 }
 .solde-nouvelledemande{
   display: flex;
@@ -186,6 +190,9 @@
   font-weight: bold;
   text-align: center;
   transition: all 0.2s ease-in-out;
+}
+.submitboutton-smallscreen{
+  display: none;
 }
 .submitboutton:hover{
   background-color:#9082ff ;
@@ -257,6 +264,7 @@
 .Title-leave-requests  {
   text-align: left;
   margin-left: 1rem;
+  font-size: none;
 }
 .pagination {
   display: flex;
@@ -323,4 +331,142 @@
     padding-left:3rem;
     padding-right:3rem;
     text-align: left;
+}
+
+
+@media (max-width: 890px) {
+
+  .employee-dashboard{
+  flex-direction: column;
+}
+.navigation-bar-left{
+  display: flex;
+  background: linear-gradient(92deg, rgba(29, 29, 77, 0.55) -6.57%, rgba(67, 67, 179, 0.55) 97.28%);
+  background-color: #0F0F28;
+  flex-direction: row-reverse;
+  position: fixed;
+  z-index: 1000;
+  justify-content: space-between;
+  left: 0;
+  top: 0;
+  height: 160px;
+  width: 100vw;
+  min-width: 11.5rem;
+  border-right: none;
+}
+.navigation-employee{
+  display: flex;
+  width: 50%;
+  margin-top: 0rem;
+}
+.employee-info{
+    display: flex;
+    margin-top: .5rem;
+    width: 50%;
+    flex-direction: column;
+    height: fit-content;
+    border-top: none;
+    justify-content: center;
+    text-align: center;
+}
+.employee-info p{
+    margin-top: .7rem;
+    line-height: 20%;
+
+}
+.employee-info h1{
+    line-height: 10%;
+
+}
+.progress-bar{
+  display: flex;
+  background-color: #9091B6;
+  border-radius: .3rem;
+  margin-left: 10%;
+  width: 60%;
+  height: 1.2rem;
+}
+.solde-progress{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: .3rem;
+    background-color: #5B45FF;
+    color: #b4b5d4;
+}
+.solde-restant-info{
+  display: flex;
+  height: fit-content;
+  width: 100%;
+  flex-direction: row;
+  align-items: baseline;
+}
+.tableau-historique-right{
+  display: flex;
+  margin-left: 0;
+  margin-top: 160px;
+  flex-direction: column;
+  right: 0;
+}
+.titleandfiltres{
+  margin-top: 148px;
+}
+.navigation-bar-left h2{
+  display: none;
+}
+.solde-nouvelledemande{
+  display: none;
+}
+.submitboutton{
+  display: none;
+}
+
+.titleandfiltres{
+  display: flex;
+  margin-top: 3rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  margin-left: 4%;
+  margin-right: none;
+}
+.Title-leave-requests  {
+  display: flex;
+  width: 100vw;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  margin-left: 0rem;
+  font-size: 14px;
+}
+.submitboutton-smallscreen{
+  display: flex;
+  width: 10rem;
+  margin-right: 10%;
+  height: fit-content;
+  background-color: #5B45FF;
+  color: #FFFFFF;
+  border-radius: .5rem;
+  padding: .5rem 1.3rem;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+}
+.submitboutton-smallscreen:hover{
+  background-color:#9082ff ;
+}
+.filtrerparnom{
+  display: none;
+}
+
+.managerheader{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 0;
+  margin-top: 200px;
+}
+
 }

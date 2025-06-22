@@ -20,6 +20,7 @@ function PageManager() {
     const [totalPages, setTotalPages] = useState(1);
     const [filterName, setFilterName] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
+    
     const [searchTerm, setSearchTerm] = useState("");
     const [showNames, setShowNames] = useState(false);
     const[allEmployees, setAllEmployees] = useState([]);
@@ -132,6 +133,10 @@ return (
         statut={request.status}
         employee_id={request.employee_id}
         date_soumission={request.date_soumission}
+        isActive={activeFormId === request.id}
+            onToggle={() => {
+              setActiveFormId(prev => prev === request.id ? null : request.id);
+              }}
       />
   ))}
 </div>

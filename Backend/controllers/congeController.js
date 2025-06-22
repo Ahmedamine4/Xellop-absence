@@ -116,5 +116,92 @@ export const updateLeave = async (req, res) => {
   }
 };
 
+export const getPaginatedLeavesByUser = async (req, res) => {
+  const { userId } = req.params;
+  const page = parseInt(req.query.page) || 1;
+  const limit = 5;
+  const offset = (page - 1) * limit;
+
+
+  try {
+    const [data] = await pool.query(`
+      SELECT * FROM conge 
+      WHERE employee_id = ?
+      ORDER BY date_soumission DESC 
+      LIMIT ? OFFSET ?
+    `, [userId, limit, offset]);
+
+    const [[{ total }]] = await pool.query(`
+      SELECT COUNT(*) as total 
+      FROM conge 
+      WHERE employee_id = ?
+    `, [userId]);
+
+    res.json({
+      data,
+      currentPage: page,
+      totalPages: Math.ceil(total / limit),
+      totalItems: total
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erreur lors de la pagination' });
+  }
+};
+
+export const getPaginatedLeavesForManager = async (req, res) => {
+  const { managerId } = req.params;
+  const page = parseInt(req.query.page) || 1;
+  const limit = 4;
+  const offset = (page - 1) * limit;
+
+  try {
+    const [data] = await pool.query(
+      `SELECT * FROM conge 
+       WHERE manager_id = ? AND status = 'En Cours'
+       ORDER BY date_soumission DESC
+       LIMIT ? OFFSET ?`,
+      [managerId, limit, offset]
+    );
+
+    const [[{ total }]] = await pool.query(
+      `SELECT COUNT(*) as total FROM conge 
+       WHERE manager_id = ? AND status = 'En Cours'`,
+      [managerId]
+    );
+
+    res.json({
+      data,
+      currentPage: page,
+      totalPages: Math.ceil(total / limit),
+      totalItems: total
+    });
+  } catch (err) {
+    console.error("Erreur pagination manager :", err);
+    res.status(500).json({ error: 'Erreur lors de la pagination manager' });
+  }
+};
+
+export const getAllEmployeesForManager = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const [results] = await pool.query(
+      `SELECT DISTINCT employee_id, first_name, last_name
+       FROM conge
+       WHERE manager_id = ? AND status = 'En Cours'`,
+      [userId]
+    );
+
+    res.json(results);
+  } catch (error) {
+    console.error("Erreur récupération employés:", error);
+    res.status(500).json({ error: "Erreur lors de la récupération" });
+  }
+};
+
+
+
 
 

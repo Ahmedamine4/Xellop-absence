@@ -5,6 +5,10 @@ import { updateLeave } from '../controllers/congeController.js';
 import { updateLeaveStatus } from '../controllers/congeController.js';
 import { DemandeByUser } from '../controllers/congeController.js';
 import { getLeaveStatus } from '../controllers/congeController.js';
+import { getPaginatedLeavesByUser } from '../controllers/congeController.js';
+import { getPaginatedLeavesForManager } from '../controllers/congeController.js';
+import { getAllEmployeesForManager } from '../controllers/congeController.js';
+
 
 const router = express.Router();
 
@@ -20,6 +24,10 @@ router.delete("/:id", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+router.get('/paginated/:userId', getPaginatedLeavesByUser);
+router.get('/manager/paginated/:managerId', getPaginatedLeavesForManager);
+router.get('/manager/allnames/:userId', getAllEmployeesForManager);
 
 
 router.put('/:id', updateLeave);

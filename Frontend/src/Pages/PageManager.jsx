@@ -17,42 +17,89 @@ function PageManager() {
   
     const [leaveRequests, setLeaveRequests] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 4;
-    const totalPages = Math.ceil(leaveRequests.filter(r => r.employee_id === userid).length / itemsPerPage);
+    const [totalPages, setTotalPages] = useState(1);
+    const [filterName, setFilterName] = useState('');
+    const [searchQuery, setSearchQuery] = useState('');
+    const [searchTerm, setSearchTerm] = useState("");
+    const [showNames, setShowNames] = useState(false);
+    const[allEmployees, setAllEmployees] = useState([]);
 
-    const [filterName, setfilterName] = useState('');
-
-      useEffect(() => {
-    if (userid) {
-      axios.get(`http://localhost:5000/api/leaves/one/${userid}`)
-        .then(response => setLeaveRequests(response.data))
-        .catch(error => console.error('Erreur de chargement des congés :', error));
+    useEffect(() => {
+  const fetchLeaves = async () => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/leaves/manager/paginated/${userid}?page=${currentPage}`);
+      setLeaveRequests(response.data.data);
+      setTotalPages(response.data.totalPages);
+    } catch (error) {
+      console.error("Erreur chargement des congés manager :", error);
     }
-  }, [userid]);
+  };
+
+  if (userid) fetchLeaves();
+}, [userid, currentPage]);
+
+
+
+useEffect(() => {
+  const fetchAllNames = async () => {
+    try {
+      const res = await axios.get(`http://localhost:5000/api/leaves/manager/allnames/${userid}`);
+      console.log("All leave requests:", res.data);
+      setAllEmployees(res.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  if (userid) fetchAllNames();
+}, [userid]);
+
 
 
 return (
 <div className='manager-dashboard'>
 <section className="navigation-bar-left">
-        <div className="navigation-employee">
+  <div className="navigation-employee">
+    <h2>
+      Navigation
+    </h2>
+    <Navbar role={role} />
         <h2>
-          Navigation
+          Recherche par nom
         </h2>
-        <Navbar role={role} />
-        <h2>
-          Filtrer par collaborateur
-        </h2>
-        <div className='filtrerparnom'>
-          <boutton className={`boutton-filtre-nom ${filterName === "All" ? "active" : ""}`}  onClick={() => { setfilterName("All") }} > All </boutton>
-        {[...new Map(
-          leaveRequests
-            .filter(request => request.manager_id === userid && request.status === "En Cours")
-            .map(request => [`${request.first_name} ${request.last_name}`, request])
-          ).values()]
-          .map(request => (
-            <boutton  className={`boutton-filtre-nom ${filterName === request.employee_id ? "active" : ""}`} key={request.id} onClick={() => { setfilterName(request.employee_id) }} >{request.first_name} {request.last_name}</boutton>
-          ))}
-          </div>
+       
+<div className="search-container">
+  <div className="content">
+    <input
+      type="text"
+      placeholder="Rechercher"
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+      className="input-search-custom"
+    />
+  </div>
+</div>
+
+<div className='filtrerparnom'>
+  {searchTerm.trim() !== "" &&
+    allEmployees
+      .filter(emp =>
+        `${emp.first_name} ${emp.last_name}`.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+      .map(emp => (
+        <button
+          key={emp.employee_id}
+          className={`boutton-filtre-nom ${filterName === emp.employee_id ? "active" : ""}`}
+          onClick={() => setFilterName(emp.employee_id)}
+        >
+          {emp.first_name} {emp.last_name}
+        </button>
+      ))}
+</div>
+
+
+
+
         </div>
         <div className="employee-info">
           <div className="inner">
@@ -65,37 +112,31 @@ return (
       </div>
       
       </section>
- <section className='managerheader'>
+      <section className='managerheader'>
           <h2>Gestion des abscence</h2>
           <div className='managerdemandeabscence'>
-          {leaveRequests
-          .filter(leaveRequests => leaveRequests.manager_id === userid && leaveRequests.status === "En Cours")
-          .filter(leaveRequests=> !filterName || filterName === "All" || leaveRequests.employee_id === filterName )
-          .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
-          .map(request => (
-          <Managercard
-            key={request.id}
-            id={request.id}
-            first_name={request.first_name}
-            last_name={request.last_name}
-            start_date={request.start_date}
-            end_date={request.end_date}
-            type={request.type}
-            statut={request.status}
-            employee_id={request.employee_id}
-            date_soumission={request.date_soumission}
-            isActive={activeFormId === request.id}
-            onToggle={() => {
-              setActiveFormId(prev => prev === request.id ? null : request.id);
-              }}
-            />
-        ))}
-        </div>
+  {leaveRequests
+    .filter(request => 
+      (!filterName || filterName === "All" || request.employee_id === filterName) &&
+      `${request.first_name} ${request.last_name}`.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .map(request => (
+      <Managercard
+        key={request.id}
+        id={request.id}
+        first_name={request.first_name}
+        last_name={request.last_name}
+        start_date={request.start_date}
+        end_date={request.end_date}
+        type={request.type}
+        statut={request.status}
+        employee_id={request.employee_id}
+        date_soumission={request.date_soumission}
+      />
+  ))}
+</div>
               <div className="pagination">
-        <button onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>
-        {'|<'}
-        </button>
-
+    
         <button onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
           {'<'}
         </button>
@@ -120,9 +161,7 @@ return (
           {'>'}
         </button>
 
-        <button onClick={() => setCurrentPage(totalPages)} disabled={currentPage === totalPages}>
-         {'>|'}
-        </button>
+        
         </div>
  </section>
 

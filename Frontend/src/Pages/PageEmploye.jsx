@@ -23,24 +23,24 @@ function PageEmploye() {
   const [typeConge, setTypeConge] = useState('');
   const [statutConge, setStatutConge] = useState('');
   const [selectedYear, setSelectedYear] = useState('');
+  const [totalPages, setTotalPages] = useState(1); 
   const percentage = (jour_res / 30) * 100;
-
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
-  const totalPages = Math.ceil(leaveRequests.filter(r => r.employee_id === userid).length / itemsPerPage);
+  
 
-
-  const loadLeaves = async () => {
-    try {
-      const response = await axios.get(`http://localhost:5000/api/leaves/${userid}`);
-      setLeaveRequests(response.data);
-    } catch (error) {
-      console.error('Erreur de chargement des congés :', error);
-    }
-  };
+  const loadLeaves = async (page = currentPage) => {
+  try {
+    const response = await axios.get(`http://localhost:5000/api/leaves/paginated/${userid}?page=${page}`);
+    setLeaveRequests(response.data.data);
+    setTotalPages(response.data.totalPages);
+  } catch (error) {
+    console.error('Erreur de chargement des congés :', error);
+  }
+};
   useEffect(() => {
-    if (userid) loadLeaves();
-  }, [userid]);
+    if (userid) loadLeaves(currentPage);
+  },  [userid, currentPage]);
+
 const handleDelete = async (id) => {
     if (!window.confirm("Voulez-vous vraiment supprimer ce brouillon ?")) return;
     try {
@@ -85,7 +85,8 @@ const handleDelete = async (id) => {
   useEffect(() => {
     if (userid) {
       axios.get(`http://localhost:5000/api/leaves/${userid}`)
-        .then(response => setLeaveRequests(response.data))
+        .then(response => 
+          setLeaveRequests(response.data))
         .catch(error => console.error('Erreur de chargement des congés :', error));
     }
   }, [userid]);
@@ -138,7 +139,6 @@ const handleDelete = async (id) => {
       </section>
       <section className="tableau-historique-right">
       <div className="titleandfiltres">
-
       <div className="Title-leave-requests">
       <h2>Historique des demandes de congé</h2>
         <button className='submitboutton-smallscreen' onClick={() => { setShowForm(!showForm); setEditDraft(null); }}>
@@ -172,7 +172,6 @@ const handleDelete = async (id) => {
           .filter(leaveRequests => !typeConge || typeConge === "All" || leaveRequests.type === typeConge)
           .filter(leaveRequests => !statutConge || statutConge === "All" || leaveRequests.status === statutConge)
           .filter(leaveRequest => !selectedYear || selectedYear === "All" || new Date(leaveRequest.date_soumission).getFullYear().toString() === selectedYear )
-          .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
           .map(request => (
           <Demandecard
             id={request.id}
@@ -189,9 +188,6 @@ const handleDelete = async (id) => {
         ))}
       </div>
       <div className="pagination">
-        <button onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>
-        {'|<'}
-        </button>
 
         <button onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
           {'<'}
@@ -217,9 +213,7 @@ const handleDelete = async (id) => {
           {'>'}
         </button>
 
-        <button onClick={() => setCurrentPage(totalPages)} disabled={currentPage === totalPages}>
-         {'>|'}
-        </button>
+        
         </div>
         </section>
     </div>

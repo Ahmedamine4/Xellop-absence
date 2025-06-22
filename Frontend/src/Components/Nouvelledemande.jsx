@@ -52,6 +52,7 @@ function Nouvelledemande({ userid, setLeaveRequests, setShowForm, showForm, edit
           manager_id: id_manager,
           first_name: first_name,
           last_name: last_name,
+          email: email,
         });
         alert(`Brouillon mis à jour !`);
         setShowForm(false);
@@ -65,6 +66,7 @@ function Nouvelledemande({ userid, setLeaveRequests, setShowForm, showForm, edit
           manager_id: id_manager,
           first_name: first_name,
           last_name: last_name,
+          email: email,
         });
 
         const response = await axios.get(`http://localhost:5000/api/leaves/${userid}`);

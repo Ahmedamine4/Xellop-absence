@@ -1,9 +1,10 @@
 import "./Cards.css"
 import { useState } from "react";
 import axios from "axios";
+import { IoIosClose } from "react-icons/io";
 
 
-function Managercard({id, start_date, end_date, type, statut, first_name, last_name, date_soumission }) {
+function Managercard({id, start_date, end_date, type, statut, first_name, last_name, date_soumission, isActive, onToggle }) {
 
   const [selectedStatus, setSelectedStatus] = useState(statut);
   const employee_id = localStorage.getItem("employee_id");
@@ -16,68 +17,97 @@ function Managercard({id, start_date, end_date, type, statut, first_name, last_n
     return Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) + 1;
   };
   
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.put(`http://localhost:5000/api/leaves/one/${id}`, {
-        status: selectedStatus,
-      });
-      alert("Statut mis à jour avec succès !");
-    } catch (error) {
-      console.error("Erreur lors de la mise à jour :", error);
-      alert("Erreur lors de la mise à jour du statut");
-    }
-  };
+ const handleStatusChange = async (newStatus) => {
+  try {
+    await axios.put(`http://localhost:5000/api/leaves/one/${id}`, {
+      status: newStatus,
+    });
+    alert(`Demande ${newStatus.toLowerCase()} avec succès !`);
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour :", error);
+    alert("Erreur lors de la mise à jour du statut");
+  }
+};
   
   const statutstyle = `mcheck ${statut.toLowerCase().replace(" ", "-")}`;
   return (
+    <>
       <section className="manager-card">
+        <div className="managercard-right">
         <div className="mcard-info">
-          <span className="mname"> {first_name} {last_name} </span>
-          <span>Type de congé : <strong>{type}</strong></span>
-          <span>Demande fait le : <strong>{new Date(date_soumission).toLocaleDateString("fr-FR")}</strong></span>
-          <span>Date de début : <strong>{new Date(start_date).toLocaleDateString("fr-FR")}</strong></span>
-          <span>Date de fin : <strong>{new Date(end_date).toLocaleDateString("fr-FR")}</strong></span>
-          <span>Nombre de jours : <strong>{calculateDays(start_date, end_date)}</strong></span>
+          <h1 className="mname"> {first_name} {last_name} </h1>
+          <span className="spandessous bigger" >Demande fait le {new Date(date_soumission).toLocaleDateString("fr-FR")}</span>
         </div>
- <form className="statutssubmit" onSubmit={handleSubmit}>
-        <label className="mstatut en-cours">
-          <input 
-            type="radio" 
-            name={`statut-${employee_id}`} 
-            value="En Cours" 
-            checked={selectedStatus === "En Cours"}
-            onChange={(e) => setSelectedStatus(e.target.value)} 
-          />
-          <span className="checkmark">✓</span>
-          En Cours
-        </label>
-        <label className="mstatut validé">
-          <input 
-            type="radio" 
-            name={`statut-${employee_id}`} 
-            value="Validé"
-            checked={selectedStatus === "Validé"}
-            onChange={(e) => setSelectedStatus(e.target.value)} 
-          />
-          <span className="checkmark">✓</span>
-          Accepter
-        </label>
-        <label className="mstatut refusé">
-          <input 
-            type="radio" 
-            name={`statut-${employee_id}`} 
-            value="Refusé"
-            checked={selectedStatus === "Refusé"}
-            onChange={(e) => setSelectedStatus(e.target.value)} 
-          />
-          <span className="checkmark">✓</span>
-          Refuser
-        </label>
-
-        <button className="msubmitboutton" type="submit">Submit</button>
-      </form>
+        <div className="mcard-details">
+        <div className="mcard-info first">
+          <span>Type de congé </span>
+          <p>{type}</p>
+          <span className="spandessous" >Durée </span>
+          <p>{calculateDays(start_date, end_date)}J</p>
+        </div>
+        <div className="mcard-info second">
+          <span>Début</span>
+          <p>{new Date(start_date).toLocaleDateString("fr-FR")}</p>
+          <span className="spandessous">Fin</span>
+          <p>{new Date(end_date).toLocaleDateString("fr-FR")}</p>
+        </div>
+        </div>
+        </div>
+        <button className="openboutton-manager" onClick={onToggle}>
+          Ouvrir
+        </button>
       </section>
+      {isActive && (
+        <div className="formpage">
+          <div className="absence-request-form-manager">
+            <div className="manager-header">
+            <h3>Gérer la demande d'abscence</h3>
+            <IoIosClose size={32} onClick={onToggle} style={{ cursor: "pointer", color: "white" }} />
+            </div>
+            <div className="formpage-info">
+              <div className="mcard-info form top">
+               <h1 className="mname"> {first_name} {last_name} </h1>
+               <span className="spandessous bigger" >Demande fait le {new Date(date_soumission).toLocaleDateString("fr-FR")}</span>
+              </div>
+              <div className="mcard-details">
+             <div className="mcard-info form">
+               <span>Type de congé </span>
+               <p>{type}</p>
+              </div>
+              <div className="mcard-info form">
+                <span>Début</span>
+                <p>{new Date(start_date).toLocaleDateString("fr-FR")}</p>
+                <span className="spandessous">Fin</span>
+                <p>{new Date(end_date).toLocaleDateString("fr-FR")}</p>
+              </div>
+              <div className="mcard-info form">
+                <span className="spandessous" >Durée </span>
+                <p>{calculateDays(start_date, end_date)}J</p>
+              </div>
+            </div>
+          </div>
+          <form onSubmit={handleStatusChange}>
+            <div className="action-buttons">
+           <button
+            type="button"
+             className="btn-refuse"
+              onClick={() => handleStatusChange("Refusé")}
+            >
+            Refuser
+            </button>
+            <button
+              type="button"
+              className="btn-accept"
+              onClick={() => handleStatusChange("Validé")}
+              >
+            Accepter
+            </button>
+            </div>
+           </form>
+      </div>
+  </div>
+)}
+      </>
   )
 }
 export default Managercard

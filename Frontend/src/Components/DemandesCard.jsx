@@ -1,9 +1,27 @@
 import "./Cards.css"
-import deleteIcon from '../assets/Delete.svg';
-import editIcon from '../assets/edit.svg';
-import sendIcon from '../assets/send.svg';
+import { MdDelete } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
+import { IoIosSend } from "react-icons/io";
+import React, { useState, useRef, useEffect } from 'react';
+import { IoMdMore } from "react-icons/io";
 
 function Demandecard({ id, date_soumission, start_date, end_date, type, statut, onEdit, onDelete, onSend }) {
+
+  const [more, setMore] = useState(false);
+  const moreRef = useRef(null);
+   useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (moreRef.current && !moreRef.current.contains(event.target)) {
+        setMore(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const calculateDays = (start, end) => {
     const startDate = new Date(start);
     const endDate = new Date(end);
@@ -19,21 +37,27 @@ function Demandecard({ id, date_soumission, start_date, end_date, type, statut, 
   return (
     <div className="Card-modif">
     <section className="Card-container">
-      <span>
+      <span className="date-soummisssion">
         {date_soumission
           ? new Date(date_soumission).toLocaleDateString("fr-FR")
           : "Date non renseignée"}
       </span>
       <span>{new Date(start_date).toLocaleDateString("fr-FR")}</span>
       <span>{new Date(end_date).toLocaleDateString("fr-FR")}</span>
-      <span>{calculateDays(start_date, end_date)}</span>
+      <span >{calculateDays(start_date, end_date)}</span>
       <span>{type}</span>
       <span className={statutstyle}>{statut}</span>
     {statut === "Brouillon" && (
-        <span className="modification-brouillant">
-          <div className="icon-container modifier"><img onClick={() => onEdit(id)} src={editIcon} alt="Modifier" /></div>
-          <div className="icon-container supprimer"><img onClick={() => onDelete(id)} src={deleteIcon} alt="Supprimer" /></div>
-          <div className="icon-container envoyer"><img onClick={() => onSend(id)} src={sendIcon} alt="Envoyer" /></div>
+        <span className="modification-brouillant-icon">
+          <IoMdMore size={26}  type="button" className={`more-button ${more ? "active" : ""}`} onClick={() => setMore(!more)} />
+          {more && (
+            <div className="more-dropdown" ref={moreRef} >
+              <h3 className="more-title">Brouillon</h3>
+              <span className="more-actions"  onClick={() => onEdit(id)} type="button"> <MdEdit className="more-icons"/> Modifier</span>
+              <span className="more-actions"> <MdDelete className="more-icons" onClick={() => onDelete(id)} type="button"/> Supprimer  </span>
+              <span className="more-actions"> <IoIosSend className="more-icons" onClick={() => onSend(id)} type="button"/> Soumettre  </span>
+            </div>    
+          )}
         </span>
       )}
     </section>

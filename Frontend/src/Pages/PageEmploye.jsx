@@ -159,7 +159,7 @@ const handleDelete = async (id) => {
       </div>
       <div className="leave-requests">
         <div className="Title">
-          <span>Date de soumission</span>
+          <span className="date-soummisssion">Date de soumission</span>
           <span>Date de début</span>
           <span>Date de fin</span>
           <span>Nombre de jours</span>

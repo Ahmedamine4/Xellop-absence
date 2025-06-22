@@ -11,7 +11,9 @@ function PageManager() {
     const jour_res = localStorage.getItem('Jour_restant');
     const role = localStorage.getItem('role');
     const id_manager = localStorage.getItem('manager_id');
-    const userid = localStorage.getItem('employee_id'); 
+    const userid = localStorage.getItem('employee_id');
+
+    const [activeFormId, setActiveFormId] = useState(null);
   
     const [leaveRequests, setLeaveRequests] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -82,7 +84,11 @@ return (
             statut={request.status}
             employee_id={request.employee_id}
             date_soumission={request.date_soumission}
-/>
+            isActive={activeFormId === request.id}
+            onToggle={() => {
+              setActiveFormId(prev => prev === request.id ? null : request.id);
+              }}
+            />
         ))}
         </div>
               <div className="pagination">

@@ -114,7 +114,7 @@
 .managerdemandeabscence{
     display: flex;
     margin-left: 3%;
-    gap: 2rem;
+    gap: 0;
     flex-wrap: wrap;
 }
 
@@ -370,7 +370,7 @@
     text-align: center;
 }
 .employee-info p{
-    margin-top: .7rem;
+    margin-top: .5rem;
     line-height: 20%;
 
 }
@@ -469,4 +469,16 @@
   margin-top: 200px;
 }
 
+
+}
+@media (max-width:680px) {
+  .Title{
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 15px;
+}
+}
+@media (max-width:535px) {
+.employee-info h1{
+    line-height: 1;
+
+}
 }

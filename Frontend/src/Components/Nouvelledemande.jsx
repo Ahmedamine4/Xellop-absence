@@ -2,6 +2,7 @@ import  { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./Cards.css";
 import CustomSelect from './Congeoptions';
+import { IoIosClose } from "react-icons/io";
 
 function Nouvelledemande({ userid, setLeaveRequests, setShowForm, showForm, editDraft , id_manager, first_name, last_name, soldeConge}) {
 
@@ -134,7 +135,10 @@ function Nouvelledemande({ userid, setLeaveRequests, setShowForm, showForm, edit
         <div className='formpage'>
       {showForm && (
         <div className="absence-request-form">
-          <h2>Demande d'Absence</h2>
+          <div className="manager-header nouvelle">
+          <h3>Demande d'Absence</h3>
+          <IoIosClose size={32} onClick={() => setShowForm(false)} style={{ cursor: "pointer", color: "white" }} />
+            </div>
           <form className='form-choix' onSubmit={handleSubmit}>
             
             <div className="choix">
@@ -150,19 +154,18 @@ function Nouvelledemande({ userid, setLeaveRequests, setShowForm, showForm, edit
               <CustomSelect value={typeConge} onChange={setTypeConge} required />
             </div>
             <div className='bouttonsform'>
-            <button className="annulerdemande" onClick={() => setShowForm(false)}>Annuler</button>
             <button 
               className="brouillondemande" 
               type="button"
               onClick={SetBrouillon}
             >
-              Enregistrer comme brouillon
+              Brouillant
             </button>
             <button 
               className="enregistrerdemande" 
               type="submit"
               > 
-              Soumettre la demande
+              Soumettre
             </button>
             </div>
           </form>

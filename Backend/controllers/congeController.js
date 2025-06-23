@@ -1,19 +1,20 @@
 import pool from '../db.js';
+import sendEmail  from '../utils/sendEmail.js';
 
 export const createLeaveRequest = async (req, res) => {
   try {
-    const { employee_id, start_date, end_date, type, status,manager_id, first_name, last_name } = req.body;
+    const { employee_id, start_date, end_date, type, status,manager_id, first_name, last_name, email } = req.body;
     const date_soumission = new Date();
-
-    console.log("Reçu :", { employee_id, start_date, end_date, type, status, manager_id, first_name, last_name });
+ 
+    console.log("Reçu :", { employee_id, start_date, end_date, type, status, manager_id, first_name, last_name , email});
 
     if (!employee_id || !start_date || !end_date || !type || !status || !manager_id || !first_name || !last_name ) {
       return res.status(400).json({ error: 'Champs manquants' });
     }
 
     await pool.execute(
-      'INSERT INTO conge (employee_id, start_date, end_date, type, status, manager_id, first_name, last_name, date_soumission ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [employee_id, start_date, end_date, type, status || 'En Cours' ,manager_id, first_name, last_name, date_soumission]
+      'INSERT INTO conge (employee_id, start_date, end_date, type, status, manager_id, first_name, last_name, date_soumission, email ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [employee_id, start_date, end_date, type, status || 'En Cours' ,manager_id, first_name, last_name, date_soumission, email]
     );
 
     res.status(201).json({ message: 'Demande enregistrée avec succès' });
@@ -76,21 +77,79 @@ export const updateLeaveStatus = async (req, res) => {
   const { status } = req.body;
 
   try {
+    // 1. Récupérer la demande
+    const [rows] = await pool.query("SELECT * FROM conge WHERE id = ?", [id]);
+
+    if (rows.length === 0) {
+      return res.status(404).json({ message: "Demande non trouvée" });
+    }
+
+    const { start_date, end_date, employee_id } = rows[0];
+    const start = new Date(start_date);
+    const end = new Date(end_date);
+    const nbJours = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
+
+    // 2. Récupérer le solde + email du collaborateur
+    const [[collab]] = await pool.query(
+      "SELECT annual_leave_balance, email, first_name FROM collaborateurs WHERE employee_id = ?",
+      [employee_id]
+    );
+
+    if (!collab) {
+      return res.status(404).json({ message: "Collaborateur non trouvé" });
+    }
+
+    const { annual_leave_balance, email, first_name } = collab;
+
+    if (status === "Validé" && annual_leave_balance < nbJours) {
+      return res.status(400).json({
+        message: `Solde insuffisant. Solde actuel : ${annual_leave_balance}, jours demandés : ${nbJours}`
+      });
+    }
+
+    // 3. Mettre à jour le statut
     const [result] = await pool.query(
       "UPDATE conge SET status = ? WHERE id = ?",
       [status, id]
     );
 
     if (result.affectedRows === 0) {
-      return res.status(404).json({ message: "Demande non trouvée" });
+      return res.status(404).json({ message: "Échec de la mise à jour" });
+    }
+
+    // 4. Si Validé → déduire solde + email
+    if (status === "Validé") {
+      await pool.query(
+        "UPDATE collaborateurs SET annual_leave_balance = annual_leave_balance - ? WHERE employee_id = ?",
+        [nbJours, employee_id]
+      );
+
+      if (email) {
+        const subject = "Statut de votre demande de congé";
+        const message = `Bonjour ${first_name},\n\nVotre demande de congé a été validée.\n\nCordialement,\nL'équipe RH`;
+
+        await sendEmail(email, subject, message);
+      } else {
+        console.warn("Aucune adresse email trouvée pour envoyer l’email.");
+      }
+    }
+
+    // 5. Si Refusé → envoyer email uniquement
+    if (status === "Refusé" && email) {
+      const subject = "Statut de votre demande de congé";
+      const message = `Bonjour ${first_name},\n\nVotre demande de congé a été refusée.\n\nCordialement,\nL'équipe RH`;
+
+      await sendEmail(email, subject, message);
     }
 
     res.status(200).json({ message: "Statut mis à jour avec succès" });
+
   } catch (error) {
-    console.error("Erreur lors de la mise à jour :", error);
+    console.error("❌ Erreur lors de la mise à jour :", error);
     res.status(500).json({ message: "Erreur serveur" });
   }
 };
+
 
 export const updateLeave = async (req, res) => {
   const { id } = req.params;

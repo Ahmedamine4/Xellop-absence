@@ -45,7 +45,6 @@ useEffect(() => {
   const fetchAllNames = async () => {
     try {
       const res = await axios.get(`http://localhost:5000/api/leaves/manager/allnames/${userid}`);
-      console.log("All leave requests:", res.data);
       setAllEmployees(res.data);
     } catch (err) {
       console.error(err);

@@ -54,8 +54,8 @@ function Demandecard({ id, date_soumission, start_date, end_date, type, statut, 
             <div className="more-dropdown" ref={moreRef} >
               <h3 className="more-title">Brouillon</h3>
               <span className="more-actions"  onClick={() => onEdit(id)} type="button"> <MdEdit className="more-icons"/> Modifier</span>
-              <span className="more-actions"> <MdDelete className="more-icons" onClick={() => onDelete(id)} type="button"/> Supprimer  </span>
-              <span className="more-actions"> <IoIosSend className="more-icons" onClick={() => onSend(id)} type="button"/> Soumettre  </span>
+              <span className="more-actions" onClick={() => onDelete(id)} type="button"> <MdDelete className="more-icons" /> Supprimer  </span>
+              <span className="more-actions" onClick={() => onSend(id)} type="button"> <IoIosSend className="more-icons" /> Soumettre  </span>
             </div>    
           )}
         </span>

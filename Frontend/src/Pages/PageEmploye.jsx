@@ -227,6 +227,7 @@ const handleDelete = async (id) => {
         first_name={firstName} 
         last_name={lastName} 
         soldeConge={jour_res}
+        email={localStorage.getItem('email')}
         onUpdateDone={() => {
           setEditDraft(null);
           setShowForm(false);

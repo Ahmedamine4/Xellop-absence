@@ -4,7 +4,7 @@ import "./Cards.css";
 import CustomSelect from './Congeoptions';
 import { IoIosClose } from "react-icons/io";
 
-function Nouvelledemande({ userid, setLeaveRequests, setShowForm, showForm, editDraft , id_manager, first_name, last_name, soldeConge}) {
+function Nouvelledemande({ userid, setLeaveRequests, setShowForm, showForm, editDraft , id_manager, first_name, last_name, soldeConge, email}) {
 
       const [typeConge, setTypeConge] = useState('');
       const [dateDebut, setDateDebut] = useState('');
@@ -114,6 +114,7 @@ function Nouvelledemande({ userid, setLeaveRequests, setShowForm, showForm, edit
         status: 'En Cours',
         first_name: first_name,
         last_name: last_name,
+        email: email,
       });
     }
 

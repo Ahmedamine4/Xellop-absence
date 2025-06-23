@@ -25,7 +25,12 @@ function Managercard({id, start_date, end_date, type, statut, first_name, last_n
     alert(`Demande ${newStatus.toLowerCase()} avec succès !`);
   } catch (error) {
     console.error("Erreur lors de la mise à jour :", error);
-    alert("Erreur lors de la mise à jour du statut");
+    if (error.response && error.response.data && error.response.data.message) {
+      // Affiche le message envoyé par le backend
+      alert(error.response.data.message);
+    } else {
+      alert("Erreur lors de la mise à jour du statut");
+    }
   }
 };
   

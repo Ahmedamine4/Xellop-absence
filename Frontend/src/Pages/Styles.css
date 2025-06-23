@@ -427,6 +427,15 @@
   width: 60%;
   height: 1.2rem;
 }
+
+.content{
+  display: none;
+}
+
+.input-search-custom{
+  display: none;
+}
+
 .solde-progress{
     display: flex;
     align-items: center;

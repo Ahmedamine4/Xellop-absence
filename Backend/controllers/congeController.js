@@ -214,21 +214,31 @@ export const getPaginatedLeavesForManager = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = 4;
   const offset = (page - 1) * limit;
-
+  const filterName = req.query.filterName || null;
   try {
-    const [data] = await pool.query(
-      `SELECT * FROM conge 
-       WHERE manager_id = ? AND status = 'En Cours'
-       ORDER BY date_soumission DESC
-       LIMIT ? OFFSET ?`,
-      [managerId, limit, offset]
-    );
+    let baseQuery = `
+      SELECT * FROM conge 
+      WHERE manager_id = ? AND status = 'En Cours'
+    `;
+    let countQuery = `
+      SELECT COUNT(*) as total FROM conge 
+      WHERE manager_id = ? AND status = 'En Cours'
+    `;
+    const params = [managerId];
+    const countParams = [managerId];
 
-    const [[{ total }]] = await pool.query(
-      `SELECT COUNT(*) as total FROM conge 
-       WHERE manager_id = ? AND status = 'En Cours'`,
-      [managerId]
-    );
+    if (filterName && filterName !== "All") {
+      baseQuery += " AND employee_id = ?";
+      countQuery += " AND employee_id = ?";
+      params.push(filterName);
+      countParams.push(filterName);
+    }
+
+    baseQuery += ` ORDER BY date_soumission DESC LIMIT ? OFFSET ?`;
+    params.push(limit, offset);
+
+    const [data] = await pool.query(baseQuery, params);
+    const [[{ total }]] = await pool.query(countQuery, countParams);
 
     res.json({
       data,
@@ -247,9 +257,10 @@ export const getAllEmployeesForManager = async (req, res) => {
 
   try {
     const [results] = await pool.query(
-      `SELECT DISTINCT employee_id, first_name, last_name
-       FROM conge
-       WHERE manager_id = ? AND status = 'En Cours'`,
+      `SELECT DISTINCT col.employee_id, col.first_name, col.last_name
+       FROM conge c
+       JOIN collaborateurs col ON c.employee_id = col.employee_id
+       WHERE c.manager_id = ? AND c.status = 'En Cours'`,
       [userId]
     );
 
@@ -259,6 +270,7 @@ export const getAllEmployeesForManager = async (req, res) => {
     res.status(500).json({ error: "Erreur lors de la récupération" });
   }
 };
+
 
 
 

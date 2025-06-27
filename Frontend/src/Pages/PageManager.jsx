@@ -28,7 +28,8 @@ function PageManager() {
     useEffect(() => {
   const fetchLeaves = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/leaves/manager/paginated/${userid}?page=${currentPage}`);
+      const url = `http://localhost:5000/api/leaves/manager/paginated/${userid}?page=${currentPage}&filterName=${filterName}`;
+      const response = await axios.get(url);
       setLeaveRequests(response.data.data);
       setTotalPages(response.data.totalPages);
     } catch (error) {
@@ -37,7 +38,8 @@ function PageManager() {
   };
 
   if (userid) fetchLeaves();
-}, [userid, currentPage]);
+}, [userid, currentPage, filterName]); 
+
 
 
 
@@ -115,29 +117,25 @@ return (
       <section className='managerheader'>
           <h2>Gestion des abscence</h2>
           <div className='managerdemandeabscence'>
-  {leaveRequests
-    .filter(request => 
-      (!filterName || filterName === "All" || request.employee_id === filterName) &&
-      `${request.first_name} ${request.last_name}`.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    .map(request => (
-      <Managercard
-        key={request.id}
-        id={request.id}
-        first_name={request.first_name}
-        last_name={request.last_name}
-        start_date={request.start_date}
-        end_date={request.end_date}
-        type={request.type}
-        statut={request.status}
-        employee_id={request.employee_id}
-        date_soumission={request.date_soumission}
-        isActive={activeFormId === request.id}
-            onToggle={() => {
-              setActiveFormId(prev => prev === request.id ? null : request.id);
-              }}
-      />
-  ))}
+  {leaveRequests.map(request => (
+  <Managercard
+    key={request.id}
+    id={request.id}
+    first_name={request.first_name}
+    last_name={request.last_name}
+    start_date={request.start_date}
+    end_date={request.end_date}
+    type={request.type}
+    statut={request.status}
+    employee_id={request.employee_id}
+    date_soumission={request.date_soumission}
+    isActive={activeFormId === request.id}
+    onToggle={() => {
+      setActiveFormId(prev => prev === request.id ? null : request.id);
+    }}
+  />
+))}
+
 </div>
               <div className="pagination">
     

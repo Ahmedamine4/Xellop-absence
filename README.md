@@ -27,7 +27,7 @@ L’application a été conçue pour offrir une **expérience utilisateur simple
 ---
 
 ## ⚙️ Installation and Setup
-
+```bash
 # 1️⃣ Cloner le dépôt
 git clone https://github.com/Ahmedamine4/Xellop-absence-management.git
 # 2️⃣ Installer les dépendances
@@ -52,9 +52,10 @@ npm start
 Frontend :
 cd frontend
 npm run dev
-##✨ Highlights
-Projet professionnel réalisé lors d’un stage
-Conception full-stack (front-end + back-end)
-Interface intuitive et ergonomique
-Intégration réelle avec Google Auth et notifications e-mail
-Gestion complète des rôles, statuts et flux utilisateur
+```
+## ✨ Highlights
+-Projet professionnel réalisé lors d’un stage
+-Conception full-stack (front-end + back-end)
+-Interface intuitive et ergonomique
+-Intégration réelle avec Google Auth et notifications e-mail
+-Gestion complète des rôles, statuts et flux utilisateur

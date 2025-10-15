@@ -1,4 +1,4 @@
-##🖥️ Overview
+## 🖥️ Overview
 Ce projet est une **application web de gestion des absences** développée dans le cadre d’un stage chez **XELOPS Technology**.  
 Elle permet aux employés d’envoyer des demandes de congés et aux managers de **les approuver ou les refuser** via un tableau de bord intuitif.  
 L’application a été conçue pour offrir une **expérience utilisateur simple, rapide et sécurisée**, en intégrant l’authentification Google et des notifications par e-mail.
@@ -28,14 +28,14 @@ L’application a été conçue pour offrir une **expérience utilisateur simple
 
 ## ⚙️ Installation and Setup
 
-1️⃣ Cloner le dépôt
+# 1️⃣ Cloner le dépôt
 git clone https://github.com/Ahmedamine4/Xellop-absence-management.git
-2️⃣ Installer les dépendances
+# 2️⃣ Installer les dépendances
 cd backend
 npm install
 cd ../frontend
 npm install
-3️⃣ Configurer les variables d’environnement
+# 3️⃣ Configurer les variables d’environnement
 Créer un fichier .env dans le dossier backend :
 DB_HOST=localhost
 DB_USER=root
@@ -45,7 +45,7 @@ GOOGLE_CLIENT_ID=...
 GOOGLE_CLIENT_SECRET=...
 EMAIL_USER=ton_email@gmail.com
 EMAIL_PASS=mot_de_passe_app
-4️⃣ Lancer le projet
+# 4️⃣ Lancer le projet
 Backend :
 cd backend
 npm start
@@ -58,6 +58,3 @@ Conception full-stack (front-end + back-end)
 Interface intuitive et ergonomique
 Intégration réelle avec Google Auth et notifications e-mail
 Gestion complète des rôles, statuts et flux utilisateur
-
-yaml
-Copier le code

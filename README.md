@@ -1,11 +1,11 @@
-## 🖥️ Overview
+## 🖥️ Aperçu
 Ce projet est une **application web de gestion des absences** développée dans le cadre d’un stage chez **XELOPS Technology**.  
 Elle permet aux employés d’envoyer des demandes de congés et aux managers de **les approuver ou les refuser** via un tableau de bord intuitif.  
 L’application a été conçue pour offrir une **expérience utilisateur simple, rapide et sécurisée**, en intégrant l’authentification Google et des notifications par e-mail.
 
 ---
 
-## 🚀 Features
+## 🚀 Fonctionnalités
 - Authentification sécurisée via **Google OAuth2.0**  
 - Gestion des **demandes d’absence** (création, modification, suppression, envoi)  
 - **Pagination, filtres et recherche** pour faciliter la gestion côté manager  
@@ -16,7 +16,7 @@ L’application a été conçue pour offrir une **expérience utilisateur simple
 
 ---
 
-## 🧰 Technologies Used
+## 🧰 Technologies utilisées
 - **Frontend :** React.js, JavaScript, CSS, HTML  
 - **Backend :** Node.js, Express.js, MySQL  
 - **Authentification :** Google OAuth2.0  
@@ -26,7 +26,7 @@ L’application a été conçue pour offrir une **expérience utilisateur simple
 
 ---
 
-## ⚙️ Installation and Setup
+## ⚙️ Installation et configuration
 ```bash
 # 1️⃣ Cloner le dépôt
 git clone https://github.com/Ahmedamine4/Xellop-absence-management.git
@@ -53,9 +53,10 @@ Frontend :
 cd frontend
 npm run dev
 ```
+---
 ## ✨ Highlights
--Projet professionnel réalisé lors d’un stage
--Conception full-stack (front-end + back-end)
--Interface intuitive et ergonomique
--Intégration réelle avec Google Auth et notifications e-mail
--Gestion complète des rôles, statuts et flux utilisateur
+- Projet professionnel réalisé lors d’un stage
+- Conception full-stack **(front-end + back-end)**
+- Interface intuitive et ergonomique
+- Intégration réelle avec Google Auth et notifications e-mail
+- Gestion complète des rôles, statuts et flux utilisateur
